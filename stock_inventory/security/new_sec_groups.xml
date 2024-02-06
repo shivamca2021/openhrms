@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record model="ir.module.category" id="module_category_customuser_groups">
+            <field name="name">OpenHRMS Management</field>
+            <field name="description">Category for OpenHRMS Management</field>
+            <field name="sequence">27</field>
+        </record>
+
+        <record id="group_customuser_HR" model="res.groups">
+            <field name="name">HR</field>
+            <field name="category_id" ref="module_category_customuser_groups"/>
+        </record>
+
+        <record id="group_customuser_Infra" model="res.groups">
+            <field name="name">Infra</field>
+            <field name="category_id" ref="module_category_customuser_groups"/>
+        </record>
+
+        <record id="group_customgroup_Employee" model="res.groups">
+            <field name="name">Employee</field>
+            <field name="category_id" ref="module_category_customuser_groups"/>
+        </record>
+
+        <record id="group_customgroup_manager" model="res.groups">
+            <field name="name">Administrator</field>
+            <field name="category_id" ref="module_category_customuser_groups"/>
+            <field name="implied_ids" eval="[(4, ref('group_customgroup_Employee'))]"/>
+        </record>
+    </data>
+    
+    <data noupdate="1">
+         <record id="rule_Employee_visibility" model="ir.rule">
+            <field name="name">Employee can see only his data</field>
+            <field name="model_id" ref="hr.model_hr_employee"/>
+            <field name="groups" eval="[(4, ref('group_customgroup_Employee'))]"/>
+            <!-- <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_unlink" eval="False"/> -->
+            <field name="domain_force">[('user_id', '=', user.id)]</field>
+        </record>
+    </data>
+
+    <!-- <data>
+        <record id="hrms_dashboard.menu_hamberger_monthly_report" model="ir.ui.menu">
+            <field name="groups_id" eval="[(5,ref('stock_inventory.group_customuser_Infra'))]"/>
+        </record>
+    </data> -->
+
+</odoo>

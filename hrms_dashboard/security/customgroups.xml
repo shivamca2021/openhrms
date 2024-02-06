@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="access_for_approver_notified" model="res.groups">
+            <field name="name">Approver/Notified</field>
+        </record>
+    </data>
+</odoo>

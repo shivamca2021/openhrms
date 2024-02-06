@@ -1,0 +1,23 @@
+<odoo>
+  <data>
+    <record model="ir.ui.menu" id="hr_holidays.menu_hr_holidays_my_leaves">
+        <field name="name">My Leaves</field>
+    </record>
+
+    <record model="ir.ui.menu" id="hr_holidays.hr_leave_menu_my">
+        <field name="name">My Leaves Request</field>
+    </record>
+
+    <record model="ir.ui.menu" id="hr_attendance.menu_hr_attendance_view_attendances">
+        <field name="action" eval="False" />
+    </record>
+
+    <record model="ir.ui.menu" id="hr_attendance.menu_hr_attendance_kiosk_no_user_mode">
+        <field name="action" eval="False" />
+    </record>
+
+    <record model="ir.ui.menu" id="hr_attendance.menu_hr_attendance_my_attendances">
+        <field name="action" eval="False" />
+    </record>
+  </data>
+</odoo>

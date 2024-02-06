@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- menu_create from model form -->
+    <!--    <record id="view_hrms_checkout" model="ir.ui.view">-->
+    <!--        <field name="name">Check Out</field>-->
+    <!--        <field name="model">hrms.checkout.wiz</field>-->
+    <!--        <field name="arch" type="xml">-->
+    <!--            <form string="Create Menu">-->
+    <!--                &lt;!&ndash;                <group>&ndash;&gt;-->
+    <!--                &lt;!&ndash;                    <field name="project_id"/>&ndash;&gt;-->
+    <!--                &lt;!&ndash;                    <field name="hours_worked"/>&ndash;&gt;-->
+    <!--                &lt;!&ndash;                </group>&ndash;&gt;-->
+    <!--                &lt;!&ndash;                <group>&ndash;&gt;-->
+    <!--                &lt;!&ndash;                    <field name="role"/>&ndash;&gt;-->
+    <!--                &lt;!&ndash;                    <field name="description"/>&ndash;&gt;-->
+    <!--                &lt;!&ndash;                </group>&ndash;&gt;-->
+    <!--                <group>-->
+    <!--                    <field name="name"/>-->
+    <!--                </group>-->
+    <!--                <notebook>-->
+    <!--                    <page string="Checkout" name="checkout_line">-->
+    <!--                        <field name="attendance_checkout_ids">-->
+    <!--                            <tree string="Checkout" editable="bottom">-->
+    <!--                                <field name="project_id"/>-->
+    <!--                                <field name="description"/>-->
+    <!--                                <field name="hours_worked"/>-->
+    <!--                                <field name="role"/>-->
+    <!--                            </tree>-->
+    <!--                        </field>-->
+    <!--                    </page>-->
+    <!--                </notebook>-->
+    <!--                <footer>-->
+    <!--                    <button name="checkout_today" string="Check Out" type="object" class="btn-primary" data-hotkey="q"/>-->
+    <!--                    <button string="Cancel" class="btn-secondary" special="cancel" data-hotkey="z"/>-->
+    <!--                </footer>-->
+    <!--            </form>-->
+    <!--        </field>-->
+    <!--    </record>-->
+    <record id="view_attendance_record_tree" model="ir.ui.view">
+        <field name="name">Attendance</field>
+        <field name="model">attendance.record</field>
+        <field name="arch" type="xml">
+            <tree string="Attendance Menu">
+                <field name="checkin_time"/>
+                <field name="checkout_time"/>
+                <field name="employee"/>
+                <field name="total_hours"/>
+                <field name="today"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hr_kanban_view_employees_visibility" model="ir.ui.view">
+        <field name="name">hr.employee.kanban.visibility</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.hr_kanban_view_employees"/>
+        <field name="arch" type="xml">
+            <xpath expr="//li[hasclass('o_force_ltr')]" position="attributes">
+                <attribute name="groups">hr.group_hr_manager</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_form_view_employees_visibility" model="ir.ui.view">
+        <field name="name">hr.employee.form.visibility</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="before">
+                <field name="current_user_id" invisible="1"/>
+                <field name="is_hr_admin" invisible="1"/>
+            </xpath>
+            <xpath expr="//page[@name='hr_settings']" position="attributes">
+                <attribute name="groups">hr.group_hr_manager</attribute>
+            </xpath>
+            <xpath expr="//page[@name='public']" position="attributes">
+                <attribute name="groups">hr.group_hr_manager</attribute>
+            </xpath>
+            
+            <!-- <xpath expr="//page[@name='personal_information']" position="attributes">
+                <attribute name="attrs">{'invisible': [('is_hr_admin', '=', False)]}</attribute>
+            </xpath> -->
+
+            <xpath expr="//page[@name='personal_information']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//form/sheet/notebook/page[@name='hr_settings']" position="before">
+                <page string="Private Information" attrs="{'invisible': [('is_hr_admin', '=', False)]}"> 
+                    <group>
+                        <group string="Private Information">
+                            <field name="father_husband_name" />
+                            <field name="primary_contact_no" />
+                            <field name="emergency_contact_no" />
+                            <field name="emergency_contact_name" />
+                            <field name="rel_type" />
+                            <field name="current_address" />
+                            <field name="current_city" />
+                            <field name="current_state" />
+                            <field name="permanent_address" />
+                            <field name="personal_mailid" />
+                            <field name="official_mailid" />
+                            <field name="custom_pan" />
+                            <field name="c_adhaarnumber" />
+                            <field name="c_blood_grp" />
+                            <field name="c_dob" />
+                            <field name="c_emp_doj" />
+                            <field name="c_emp_code" />
+                            <field name="c_relevant_exp" />
+                            <field name="c_marital_status" />
+                            <field name="c_type_vehicle" />
+                            <field name="c_registration_no" />
+                            <field name="c_HR_mailid" />
+                            <field name="c_HR_contact_no" />
+                            <field name="upload_image" />
+                            <field name="upload_image_char" invisible="1"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+            
+            <!-- <xpath expr="//group[@name='payroll_group']" position="after">
+                <group string='Employee Info.' name="evon_info_group">
+                    <field name="pan_number"/>
+                    <field name="adhar_number"/>
+                    <field name="career_start_date"/>
+                    <field name="relevant_experience"/>
+                </group>
+            </xpath> -->
+            <xpath expr="//field[@name='mobile_phone']" position="before">
+                <field name="skype_id"/>
+            </xpath>
+            <xpath expr="//field[@name='mobile_phone']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='work_phone']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='parent_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='coach_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <!-- <xpath expr="//group[@name='identification_id']" position="before">
+                <group name="personal_info" string="Personal Info.">
+                    <field name="mobile_phone"/>
+                    <field name="work_phone"/>
+                    <field name="parent_id"/>
+                    <field name="coach_id"/>
+                </group>
+            </xpath> -->
+            <xpath expr="//page[2]" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+    <!--    <record id="act_hrms_checkout" model="ir.actions.act_window">-->
+    <!--        <field name="name">Check Out</field>-->
+    <!--        <field name="res_model">hrms.checkout.wiz</field>-->
+    <!--        <field name="view_mode">form</field>-->
+    <!--        <field name="target">new</field>-->
+    <!--        <field name="view_id" ref="view_hrms_checkout"/>-->
+    <!--        <field name="context">{}</field>-->
+    <!--    </record>-->
+</odoo>

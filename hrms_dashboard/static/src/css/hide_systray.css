@@ -1,0 +1,11 @@
+/* styles.css */
+
+.o_mail_navbar_item {
+    display: none;
+}
+.MessagingMenuContainer {
+    display: none;
+}
+.o_ActivityMenuView {
+    display: none;
+}

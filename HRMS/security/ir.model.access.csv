@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+hrms_checkout_wiz,hrms.checkout.wiz,model_hrms_checkout_wiz,,1,1,1,1
+attendance_checkout_line,attendance.checkout.line,model_attendance_checkout_line,,1,1,1,1
+attendance_record,attendance.record,model_attendance_record,,1,1,1,1
+custom_usertype,custom.usertype,model_custom_usertype,,1,1,1,1
+

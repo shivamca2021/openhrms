@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+        <record id="stock_inventory_view_form" model="ir.ui.view">
+            <field name="name">stock.inventory.form</field>
+            <field name="model">stock.inventory</field>
+            <field name="arch" type="xml">
+                <form string="Event">
+                    <!-- <header>
+                        <button string="Confirm" name="action_confirm" type="object" class="oe_highlight" attrs="{'invisible': ['|',('state', '=', 'done'),('state','=','confirmed')]}"/>
+                        <button string="Approve" name="action_approve" type="object" class="oe_highlight" attrs="{'invisible': ['|',('state', '=', 'draft'),('state','=','done')]}"/>
+                    </header> -->
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="assets"/>
+                                <field name="state" />
+
+                                <field name="processor" attrs="{'invisible': [('assets', 'not in', ('desktop','laptop'))]}"/>
+                                <field name="motherboard" attrs="{'invisible': [('assets', 'not in', ('desktop','laptop'))]}"/>
+                                <field name="hdd" attrs="{'invisible': [('assets', 'not in', ('desktop','laptop'))]}"/>
+                                <field name="ram" attrs="{'invisible': [('assets', 'not in', ('desktop','laptop'))]}"/>
+                                <field name="os" attrs="{'invisible': [('assets', 'not in', ('desktop','laptop'))]}"/>
+                                <field name="graphic_card" attrs="{'invisible': [('assets', 'not in', ('desktop','laptop'))]}"/>
+
+                                <field name="model_number" attrs="{'invisible': [('assets', 'not in', 'laptop')]}"/>
+                                <field name="bag" attrs="{'invisible': [('assets', 'not in', 'laptop')]}"/>
+                                <field name="charger" attrs="{'invisible': [('assets', 'not in', 'laptop')]}"/>
+
+
+                                <field name="laptop_Desktop"  attrs="{'invisible': [('assets', 'not in', 'ram')]}"/>
+                                <field name="frequency"  attrs="{'invisible': [('assets', 'not in', 'ram')]}"/>
+
+                                <field name="sata_m2" attrs="{'invisible': [('assets', 'not in', 'ssd')]}"/>
+                                <field name="company_name" attrs="{'invisible': [('assets', 'not in', 'ssd')]}"/>    
+
+                                <field name="wifi_access"  attrs="{'invisible': [('assets', 'not in', 'router')]}"/>
+
+                                <field name="in_gb" attrs="{'invisible': [('assets', 'not in', 'grpahic_card')]}" />   
+
+                                <field name="size" attrs="{'invisible': [('assets', 'not in', ('monitor','hdd','sdd','ram','accessories'))]}"/>
+                                <field name="type" attrs="{'invisible': [('assets', 'not in', 'accessories')]}"/>
+                                
+                                <field name="serial_number"/> 
+
+                                <field name="assigned_date"/>
+                                <field name="description"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="stock_inventory_view_tree" model="ir.ui.view">
+            <field name="name">stock.inventory.tree</field>
+            <field name="model">stock.inventory</field>
+            <field name="arch" type="xml">
+                <tree string="Stock">
+                    <field name="name"/>
+                    <field name="assets"/>
+                    <field name="state" />
+                    <field name="serial_number"/>
+                    <field name="assigned_date"/>
+                    <!-- <field name="location"/>
+                    <field name="seats"/> -->
+                </tree>
+            </field>
+        </record>
+
+        
+        <record id="action_custom_event" model="ir.actions.act_window">
+            <field name="name">Stock Inventory</field>
+            <field name="res_model">stock.inventory</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="stock_inventory_view_tree"/>
+        </record>
+
+        <menuitem id="menu_event_root" 
+        name="Stock Inventory"
+        web_icon="stock_inventory,static/description/accessories.png"
+        sequence="1"/>
+
+        <menuitem id="menu_event_childroot"
+            name="Accessories"
+            parent="stock_inventory.menu_event_root"
+            action="action_custom_event"
+            sequence="3" />
+</odoo>

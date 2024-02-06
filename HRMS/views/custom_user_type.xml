@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="custom_usertype_view_form" model="ir.ui.view">
+        <field name="name">custom.usertype.form</field>
+        <field name="model">custom.usertype</field>
+        <field name="arch" type="xml">
+            <form string="Contract Type">
+                <sheet>
+                    <group >
+                        <group>
+                            <field name="name"/>
+                            <field name="type"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="custom_usertype_view_tree" model="ir.ui.view">
+        <field name="name">custom.usertype.tree</field>
+        <field name="model">custom.usertype</field>
+        <field name="arch" type="xml">
+            <tree string="Custom User Type">
+                <field name="name"/>
+                <field name="type"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_custom_user_type" model="ir.actions.act_window">
+        <field name="name">Custom UserType</field>
+        <field name="res_model">custom.usertype</field>
+        <field name="view_mode">tree,form</field>
+         <field name="view_id" ref="custom_usertype_view_tree"/>
+        <!-- <field name="search_view_id" ref="view_account_tax_template_search"/> -->
+    </record>
+
+    <menuitem id="leaves_custom_user_type" 
+    name="by User Type"
+    action="HRMS.action_custom_user_type" 
+    parent="hr_holidays.menu_hr_holidays_report" 
+    sequence="5" />
+
+
+</odoo>

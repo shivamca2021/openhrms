@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- menu_create from model form -->
+    <record id="view_monthly_attendance_wizard" model="ir.ui.view">
+        <field name="name">View Wizard</field>
+        <field name="model">monthly.attendance.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Monthly Attendance">
+                <group>
+                    <group>
+                        <field name="curr_month"/>
+                    </group>
+                    <group>
+                        <field name="curr_year"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="get_wizard_monthdata" string="Get Report" type="object" class="btn-primary" data-hotkey="q"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel" data-hotkey="z"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- <record id="action_monthly_attendance_wizard" model="ir.actions.act_window">
+        <field name="name">view monthly data</field>
+        <field name="res_model">monthly.attendance.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_monthly_attendance_wizard"/>
+        <field name="target">new</field>
+    </record> -->
+
+    <record id="action_hr_monthly_attendance_wizard" model="ir.actions.act_window">
+        <field name="name">Monthly Attendance Data</field>
+        <field name="res_model">monthly.attendance.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_monthly_attendance_wizard"/>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

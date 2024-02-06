@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- menu_create from model form -->
+    <record id="view_hrms_checkout" model="ir.ui.view">
+        <field name="name">Check Out</field>
+        <field name="model">hrms.checkout.wiz</field>
+        <field name="arch" type="xml">
+            <form string="Create Menu">
+                <!--                <group>-->
+                <!--                    <field name="project_id"/>-->
+                <!--                    <field name="hours_worked"/>-->
+                <!--                </group>-->
+                <!--                <group>-->
+                <!--                    <field name="role"/>-->
+                <!--                    <field name="description"/>-->
+                <!--                </group>-->
+                <group>
+                    <field name="name"/>
+                </group>
+                <notebook>
+                    <page string="Checkout" name="checkout_line">
+                        <field name="attendance_checkout_ids">
+                            <tree string="Checkout" editable="bottom">
+                                <field name="project_id"/>
+                                <field name="description"/>
+                                <field name="hours_worked"/>
+                                <field name="role"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+                <footer>
+                    <button name="checkout_today" string="Check Out" type="object" class="btn-primary" data-hotkey="q"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel" data-hotkey="z"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="view_hrms_checkout_wiz_tree" model="ir.ui.view">
+        <field name="name">Attendance</field>
+        <field name="model">hrms.checkout.wiz</field>
+        <field name="arch" type="xml">
+            <tree string="Attendance Menu">
+               <field name="name"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_attendance_checkout_line_tree" model="ir.ui.view">
+        <field name="name">Attendance</field>
+        <field name="model">attendance.checkout.line</field>
+        <field name="arch" type="xml">
+            <tree string="Attendance Menu">
+               <field name="create_date"/>
+               <field name="project_id"/>
+               <field name="description"/>
+               <field name="hours_worked"/>
+               <field name="role"/>
+            </tree>
+        </field>
+    </record>
+    <record id="act_hrms_checkout" model="ir.actions.act_window">
+        <field name="name">Check Out</field>
+        <field name="res_model">hrms.checkout.wiz</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="view_hrms_checkout"/>
+        <field name="context">{'last_day': 'yes'}</field>
+    </record>
+</odoo>

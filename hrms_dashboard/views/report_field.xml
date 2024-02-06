@@ -1,0 +1,130 @@
+<odoo>
+  <data>
+    <record id="hr_employee_approval_boolean_inherit" model="ir.ui.view">
+        <field name="name">hr.employee.approvalboolean.inherit</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/sheet/group/group/field[@name='company_id']" position="after">
+                <field name="approval_boolean" widget="boolean_toggle" invisible="1" />
+                <field name="accessories_bool" widget="boolean_toggle" invisible="1" /> 
+            </xpath>
+            <xpath expr="//form/sheet/notebook/page[@name='hr_settings']" position="after">        
+                <page string="Accessories" attrs="{'invisible': [('accessories_bool', '=', False)]}"> 
+                    <group>
+                        <group string="Accessories">
+                            <field name="laptop" />
+                            <field name="laptop_spec" />
+                            <field name="provided_date" />
+                            <field name="returned_on" />
+                            <field name="other_accessories" />
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_leave_report_field_inherit" model="ir.ui.view">
+        <field name="name">hr.leave.reportfield.inherit</field>
+        <field name="model">hr.leave</field>
+        <field name="inherit_id" ref="hr_holidays.hr_leave_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/sheet/div/div/group[@name='col_left']/field[@name='name']" position="after">
+                <!-- <field name="report_field_id"  domain="[('validation_type','in', ('manager','both'))]"/> -->
+                <field name="rel_type_approver" widget="many2many_tags" force_save="1" attrs="{'readonly': [('holiday_status_id', 'in', (13,14,15,5,11,2))]}" />
+                <!-- <field name="supp_approval_id" domain="[('approval_boolean','=', True)]" widget="many2many_tags"/> -->
+                <field name="supp_approval_id" widget="many2many_tags" />
+                <field name="report_field_id"  widget="many2many_tags" invisible="1" />
+            </xpath>
+
+            <xpath expr="//form/sheet/div/div/group[@name='col_left']" position="after">
+                <notebook>
+                    <page string="Remaining Leave's">
+                        <field name="emp_remaining_leaves_ids" >
+                            <tree editable="bottom">
+                                <field name="display_name" />
+                                <field name="remaining_leaves" />
+                                <field name="leaves_taken" />
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_leave_type_stringname_change" model="ir.ui.view">
+        <field name="name">hr.leave.type.stringname</field>
+        <field name="model">hr.leave.type</field>
+        <field name="inherit_id" ref="hr_holidays.edit_holiday_status_form"/>
+        <field name="arch" type="xml">
+            <field name="responsible_id" position="attributes">
+                <attribute name="string">Manager/HR</attribute>
+            </field>
+        </field>
+    </record>
+
+    
+    <record id="hr_employee_hidesmartbutton" model="ir.ui.view">
+        <field name="name">hr.employee.hidesmartbutton</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form_smartbutton"/>
+        <field name="arch" type="xml">
+           <xpath expr="//div/[@name='button_box']/button[@name='action_related_contacts']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_employee_hidecontractbutton" model="ir.ui.view">
+        <field name="name">hr.employee.hidecontractbutton</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr_contract.hr_hr_employee_view_form2"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_open_contract_history']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="button_onattendance_list_view" model="ir.ui.view">
+        <field name="name">button.onattendance.list.view</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.view_attendance_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">
+                <attribute name="js_class">button_onlist_view</attribute>
+                <attribute name="create">false</attribute>
+                <attribute name="delete">false</attribute>
+                <attribute name="edit">false</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="classify_usertype_newfield" model="ir.ui.view">
+        <field name="name">res.users.usertypes</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/sheet/div[@class='oe_title']/group/field[@name='partner_id']" position="before">
+                <field name="classify_usertype" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="dashboard_attendance_treeview" model="ir.ui.view">
+        <field name="name">hr.attendance.dashboardtreeview</field>
+        <field name="model">hr.attendance</field>
+        <field name="arch" type="xml">
+            <tree string="Employee attendances" create="false" delete="false" edit="false" sample="1">
+                <field name="employee_id"/>
+                <field name="check_in"/>
+                <field name="check_out"/>
+                <field name="worked_hours" string="Work Hours" widget="float_time"/>
+            </tree>
+        </field>
+    </record>
+
+  </data>
+</odoo>

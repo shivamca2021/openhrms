@@ -1,0 +1,220 @@
+<odoo>
+    <data>
+        <record id="hr_attendance_action_modified" model="ir.actions.act_window">
+            <field name="name">Attendance</field>
+            <field name="res_model">hr.attendance</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{"search_default_today":1, "group_by": "check_in"}</field>
+            <!-- <field name="domain">[('create_date','&lt;',(context_today()+relativedelta(months=1)).strftime('%Y-%m-01')), ('create_date','&gt;=',time.strftime('%Y-%m-01'))]</field> -->
+            <field name="search_view_id" ref="hr_attendance.hr_attendance_view_filter" />
+            <field name="view_id" ref="hr_attendance.view_attendance_tree"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_empty_folder">
+                    No attendance records found
+                </p><p>
+                    The attendance records of your employees will be displayed here.
+                </p>
+            </field>
+        </record>
+
+        <record id="hr_action_dashboard" model="ir.actions.client">
+            <field name="name">Dashboard</field>
+            <field name="tag">hr_dashboard</field>
+        </record>
+
+<!--        <record id="dashboard_employee_broad_factor" model="ir.ui.view">-->
+<!--            <field name="name">dashboard.employee.broad.factor</field>-->
+<!--            <field name="model">hr.leave.type</field>-->
+<!--            <field name="inherit_id" ref="hr_holidays.edit_holiday_status_form"/>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <xpath expr="//field[@name='request_unit']" position="after">-->
+<!--                    <field name="emp_broad_factor"/>-->
+<!--                </xpath>-->
+<!--            </field>-->
+<!--        </record>-->
+        <record id="hr_action_hamburger" model="ir.actions.client">
+            <field name="name">Module's</field>
+            <field name="tag">hr_dashboard</field>
+        </record>
+
+        <menuitem id="menu_hrms_dashboard"
+                  name="Dashboard"
+                  action="hr_action_dashboard"
+                  web_icon="hrms_dashboard,static/description/dashboard_icon.png"
+                  sequence="-100" groups="base.group_user"/>
+
+        <!-- Modules Menu's -->
+
+        <menuitem id="menu_hamberger_employees"
+                  name="Employees"
+                  action="hr.open_view_employee_list_my"
+                  sequence="5"
+                  parent="hrms_dashboard.menu_hrms_dashboard"/>
+
+        <!-- <menuitem id="menu_hamberger_attendance"
+                  name="Attendance"
+                  action="hrms_dashboard.hr_attendance_action_modified"
+                  sequence="7"
+                   parent="hrms_dashboard.menu_hrms_dashboard"/> -->
+
+        <menuitem id="menu_hamberger_timesheets"
+                  name="Timesheet"
+                  action="hr_timesheet.act_hr_timesheet_line"
+                  sequence="9"
+                   parent="hrms_dashboard.menu_hrms_dashboard"/>
+
+        <menuitem id="menu_hamberger_leaves"
+                  name="Leaves"
+                  action="hr_holidays.hr_leave_action_my"
+                  sequence="11"
+                  parent="hrms_dashboard.menu_hrms_dashboard"/>
+
+         <!-- data-bs-toggle="dropdown" -->
+        <menuitem id="menu_hamberger"
+                  name="More"
+                  action="hr_action_hamburger"
+                  sequence="13"
+                  parent="hrms_dashboard.menu_hrms_dashboard"/>
+
+        <menuitem id="menu_hamberger_events"
+                  name="Events"
+                  action="event.action_event_view"
+                  parent="hrms_dashboard.menu_hamberger"/>
+
+        <menuitem id="menu_hamberger_announcement"
+                  name="Announcement"
+                  action="hr_reward_warning.action_hr_announcement"
+                  parent="hrms_dashboard.menu_hamberger"/>
+
+        <menuitem id="menu_hamberger_calendar"
+                  name="Calendar"
+                  action="calendar.action_calendar_event"
+                  parent="hrms_dashboard.menu_hamberger"/>
+
+        <menuitem id="menu_hamberger_project"
+                  name="Project"
+                  action="project.open_view_project_all"
+                  parent="hrms_dashboard.menu_hamberger"/>
+
+        <menuitem id="menu_hamberger_stock_inventory"
+                  name="Stock Inventory"
+                  action="stock_inventory.action_custom_event"
+                  parent="hrms_dashboard.menu_hamberger"/>
+
+        <menuitem id="menu_hamberger_recruitment"
+                  name="Recruitment"
+                  action="hr_recruitment.action_hr_job"
+                  parent="hrms_dashboard.menu_hamberger"/>
+
+        <menuitem id="menu_hamberger_public_holidays"
+                  name="Holidays"
+                  action="hr_holidays.open_view_public_holiday"
+                  parent="hrms_dashboard.menu_hamberger"/>
+        
+        <menuitem id="menu_hamberger_service_request"
+                  name="View Request's"
+                  action="ohrms_service_request.action_view_service_requests"
+                  parent="hrms_dashboard.menu_hamberger"/>
+
+        <menuitem id="menu_hamberger_monthly_report"
+                  name="Monthly Attendance"
+                  action="hrms_dashboard.action_hr_monthly_attendance_wizard"
+                  parent="hrms_dashboard.menu_hamberger"/>
+
+
+    </data>
+
+
+
+    <record id="broad_factor_sort_order" model="ir.ui.view">
+        <field name="name">hr.holidays.view.tree</field>
+        <field name="model">hr.leave</field>
+        <field name="inherit_id" ref="hr_holidays.hr_leave_view_tree"/>
+        <field name="arch" type="xml">
+             <xpath expr="//tree" position="attributes">
+                <attribute name="default_order">duration_display</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- <record id="hr_attendance_modified_context" model="ir.ui.view">
+        <field name="name">hr.attendance.modified</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.hr_attendance_action"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='context']" position="attributes">
+                <attribute name="context">{"search_default_today":1, "group_by": "check_in"}</attribute>
+            </xpath>
+        </field>
+    </record> -->
+
+    
+    <record id="monthly_attendance_treeview" model="ir.ui.view">
+        <field name="name">Monthly.data</field>
+        <field name="model">monthly.attendance.data</field>
+        <field name="arch" type="xml">
+            <tree string="Employee attendances" create="false" delete="false" edit="false" sample="1">
+                <field name="employee_id"/>
+                <field name="day_1" decoration-danger="day_1 == 'WO'" decoration-info="day_1 == 'Holiday'" decoration-warning="day_1 == 'Leave'" />
+                <field name="day_2" decoration-danger="day_2 == 'WO'" decoration-info="day_2 == 'Holiday'" decoration-warning="day_2 == 'Leave'" />
+                <field name="day_3" decoration-danger="day_3 == 'WO'" decoration-info="day_3 == 'Holiday'" decoration-warning="day_3 == 'Leave'" />
+                <field name="day_4" decoration-danger="day_4 == 'WO'" decoration-info="day_4 == 'Holiday'" decoration-warning="day_4 == 'Leave'" />
+                <field name="day_5" decoration-danger="day_5 == 'WO'" decoration-info="day_5 == 'Holiday'" decoration-warning="day_5 == 'Leave'" />
+                <field name="day_6" decoration-danger="day_6 == 'WO'" decoration-info="day_6 == 'Holiday'" decoration-warning="day_6 == 'Leave'" />
+                <field name="day_7" decoration-danger="day_7 == 'WO'" decoration-info="day_7 == 'Holiday'" decoration-warning="day_7 == 'Leave'" />
+                <field name="day_8" decoration-danger="day_8 == 'WO'" decoration-info="day_8 == 'Holiday'" decoration-warning="day_8 == 'Leave'" />
+                <field name="day_9" decoration-danger="day_9 == 'WO'" decoration-info="day_9 == 'Holiday'" decoration-warning="day_9 == 'Leave'" />
+                <field name="day_10" decoration-danger="day_10 == 'WO'" decoration-info="day_10 == 'Holiday'"  decoration-warning="day_10 == 'Leave'" />
+                <field name="day_11" decoration-danger="day_11 == 'WO'" decoration-info="day_11 == 'Holiday'"  decoration-warning="day_11 == 'Leave'" />
+                <field name="day_12" decoration-danger="day_12 == 'WO'" decoration-info="day_12 == 'Holiday'"  decoration-warning="day_12 == 'Leave'" />
+                <field name="day_13" decoration-danger="day_13 == 'WO'" decoration-info="day_13 == 'Holiday'"  decoration-warning="day_13 == 'Leave'" />
+                <field name="day_14" decoration-danger="day_14 == 'WO'" decoration-info="day_14 == 'Holiday'"  decoration-warning="day_14 == 'Leave'" />
+                <field name="day_15" decoration-danger="day_15 == 'WO'" decoration-info="day_15 == 'Holiday'"  decoration-warning="day_15 == 'Leave'" />
+                <field name="day_16" decoration-danger="day_16 == 'WO'" decoration-info="day_16 == 'Holiday'"  decoration-warning="day_16 == 'Leave'" />
+                <field name="day_17" decoration-danger="day_17 == 'WO'" decoration-info="day_17 == 'Holiday'"  decoration-warning="day_17 == 'Leave'" />
+                <field name="day_18" decoration-danger="day_18 == 'WO'" decoration-info="day_18 == 'Holiday'"  decoration-warning="day_18 == 'Leave'" />
+                <field name="day_19" decoration-danger="day_19 == 'WO'" decoration-info="day_19 == 'Holiday'"  decoration-warning="day_19 == 'Leave'" />
+                <field name="day_20" decoration-danger="day_20 == 'WO'" decoration-info="day_20 == 'Holiday'"  decoration-warning="day_20 == 'Leave'" />
+                <field name="day_21" decoration-danger="day_21 == 'WO'" decoration-info="day_21 == 'Holiday'"  decoration-warning="day_21 == 'Leave'" /> 
+                <field name="day_22" decoration-danger="day_22 == 'WO'" decoration-info="day_22 == 'Holiday'"  decoration-warning="day_22 == 'Leave'" />
+                <field name="day_23" decoration-danger="day_23 == 'WO'" decoration-info="day_23 == 'Holiday'"  decoration-warning="day_23 == 'Leave'" />
+                <field name="day_24" decoration-danger="day_24 == 'WO'" decoration-info="day_24 == 'Holiday'"  decoration-warning="day_24 == 'Leave'" />
+                <field name="day_25" decoration-danger="day_25 == 'WO'" decoration-info="day_25 == 'Holiday'"  decoration-warning="day_25 == 'Leave'" />
+                <field name="day_26" decoration-danger="day_26 == 'WO'" decoration-info="day_26 == 'Holiday'"  decoration-warning="day_26 == 'Leave'" />
+                <field name="day_27" decoration-danger="day_27 == 'WO'" decoration-info="day_27 == 'Holiday'"  decoration-warning="day_27 == 'Leave'" />
+                <field name="day_28" decoration-danger="day_28 == 'WO'" decoration-info="day_28 == 'Holiday'"  decoration-warning="day_28 == 'Leave'" />
+                <field name="day_29" decoration-danger="day_29 == 'WO'" decoration-info="day_29 == 'Holiday'"  decoration-warning="day_29 == 'Leave'" />
+                <field name="day_30" decoration-danger="day_30 == 'WO'" decoration-info="day_30 == 'Holiday'"  decoration-warning="day_30 == 'Leave'" />
+                <field name="day_31" decoration-danger="day_31 == 'WO'" decoration-info="day_31 == 'Holiday'"  decoration-warning="day_31 == 'Leave'" />
+            </tree>
+        </field>
+    </record>
+
+    <!-- <record id="action_hr_monthly_attendance_data" model="ir.actions.server">
+        <field name="name">Monthly Attendance Data</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_monthly_attendance_data" />
+        <field name="binding_model_id" ref="model_monthly_attendance_data" />
+        <field name="state">code</field>
+        <field name="code">action = model.view_monthly_attendance_data()</field>
+    </record> -->
+
+    <menuitem id="new_menu_hr_attendance_view_attendances" 
+            name="Attendance's" 
+            parent="hr_attendance.menu_hr_attendance_root" sequence="10" 
+            groups="hr_attendance.group_hr_attendance_user" 
+            action="hrms_dashboard.hr_attendance_action_modified"/>
+
+    <!-- <menuitem id="new_menu_monthly_attendance_data" 
+            name="Monthly Attendance" 
+            parent="hr_attendance.menu_hr_attendance_root" sequence="12" 
+            groups="hr_attendance.group_hr_attendance_user" 
+            action="hrms_dashboard.action_hr_monthly_attendance_data"/> -->
+
+    <menuitem id="new_menu_monthly_attendance_wizard" 
+            name="Monthly Attendance" 
+            parent="hr_attendance.menu_hr_attendance_root" sequence="14" 
+            groups="hr_attendance.group_hr_attendance_user" 
+            action="hrms_dashboard.action_hr_monthly_attendance_wizard"/>
+
+</odoo>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template xml:space="preserve">
+    <t t-name="hrms_dashboard.owl_listview_button" t-inherit="web.ListView.Buttons" owl="1">
+       <xpath expr="//t[contains(@t-if, 'isExportEnable')]" position="before">
+            <button class="btn btn-primary ms-2" t-on-click="openSalesView" >
+                New Leave Request
+            </button>
+       </xpath>
+    </t>
+</template>

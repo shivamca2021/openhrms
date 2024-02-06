@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+     <record id="auto_leave_alloc_cron" model="ir.cron">
+        <field name="name">Automatic PL Allocation for Employee's</field>
+        <field name="model_id" ref="model_hr_employee"/>
+        <field name="state">code</field>
+        <field name="code">model.get_allpl_from_leave_alloc()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">months</field>
+        <field name="numbercall">-1</field>
+    </record>
+
+    <data noupdate="1">
+        <record id="leave_approval_mail_template" model="mail.template">
+            <field name="name">Leave Approval</field>
+            <field name="model_id" ref="hr_holidays.model_hr_leave" />
+            
+            <field name="email_from">{{ (object.user_id.email_formatted or user.email_formatted) }}</field>
+            <field name="email_to">{{ object.user_id.email_formatted }}</field>
+            
+            <field name="subject">Pending Leave Approval</field>
+            <field name="lang">{{ object.employee_id.work_contact_id.lang }}</field>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px; font-size: 13px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        Dear 
+                        <!-- <t t-out="object.rel_type_approver[0].name or ''"></t> -->
+                        <br/><br/>
+                        <t t-out="user.name  or ''">
+                        </t> 
+                        requested you to approve the Leave.<br/><br/>
+
+                        <!-- <p style="margin: 16px 0px 16px 0px; text-align: center;">
+                            <a t-att-href="object.get_totp_invite_url()"
+                                style="background-color:#875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px;">
+                                Activate my two-factor Authentication
+                            </a>
+                        </p> -->
+                    </p>
+                </div>
+            </field>
+        </record>
+    </data>
+</odoo>
