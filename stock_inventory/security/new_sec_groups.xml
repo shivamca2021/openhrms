@@ -25,7 +25,7 @@
         <record id="group_customgroup_manager" model="res.groups">
             <field name="name">Administrator</field>
             <field name="category_id" ref="module_category_customuser_groups"/>
-            <field name="implied_ids" eval="[(4, ref('group_customgroup_Employee'))]"/>
+            <!-- <field name="implied_ids" eval="[(4, ref('group_customgroup_Employee'))]"/> -->
         </record>
     </data>
     
