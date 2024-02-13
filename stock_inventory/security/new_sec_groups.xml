@@ -29,18 +29,18 @@
         </record>
     </data>
     
-    <data noupdate="1">
+    <!-- <data noupdate="1">
          <record id="rule_Employee_visibility" model="ir.rule">
             <field name="name">Employee can see only his data</field>
             <field name="model_id" ref="hr.model_hr_employee"/>
             <field name="groups" eval="[(4, ref('group_customgroup_Employee'))]"/>
-            <!-- <field name="perm_read" eval="True"/>
+            <field name="perm_read" eval="True"/>
             <field name="perm_write" eval="False"/>
             <field name="perm_create" eval="False"/>
-            <field name="perm_unlink" eval="False"/> -->
+            <field name="perm_unlink" eval="False"/>
             <field name="domain_force">[('user_id', '=', user.id)]</field>
         </record>
-    </data>
+    </data> -->
 
     <!-- <data>
         <record id="hrms_dashboard.menu_hamberger_monthly_report" model="ir.ui.menu">
