@@ -52,8 +52,8 @@ class Employee(models.Model):
     def create(self, vals):
         res = super(Employee ,self).create(vals)
         if res.id:
-            hol_clsl_id = self.env['hr.leave.type'].search([('id','=',3)])
-            hol_pl_id = self.env['hr.leave.type'].search([('id','=',1)])
+            hol_clsl_id = self.env['hr.leave.type'].search([('id','=',17)])
+            hol_pl_id = self.env['hr.leave.type'].search([('id','=',15)])
             val_slcl = {
                     'name':"{}'s Casual / Sick Leave ( CL/SL )".format(res.name),
                     'holiday_status_id': hol_clsl_id.id,
