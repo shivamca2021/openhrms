@@ -64,7 +64,7 @@ class CustomHrLeave(models.Model):
 
     
     def custom_add_follower(self, employee_id):
-        # print("KINI",self.supp_approval_id.ids)
+        print("KINI",self.supp_approval_id.ids)
         if self.supp_approval_id.ids:
             varc = []
             for rec in self.supp_approval_id.ids:
@@ -164,7 +164,11 @@ class CustomHrLeave(models.Model):
         force_send = not(self.env.context.get('import_file', False))
         print(vals_list[0].get('rel_type_approver')[0][-1])
         mailto = self.env['res.users'].browse(vals_list[0].get('rel_type_approver')[0][-1])
+        print("mailto : ",mailto)
+        print("EMail : ",mailto.email)
         print(mailto.self.email)
+        import pdb
+        pdb.set_trace()
         email_values = {
             'email_to': mailto.self.email,
             'email_cc': False,
@@ -174,6 +178,7 @@ class CustomHrLeave(models.Model):
             'scheduled_date': False,
         }
         template = self.env.ref('hrms_dashboard.leave_approval_mail_template').sudo()
+        print("Template   :", template)
         template.send_mail(user.id, force_send=force_send, raise_exception=True, email_values=email_values)
         print("Mail Sent.","\n"*10)
 
