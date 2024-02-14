@@ -34,29 +34,33 @@ class CustomHrLeave(models.Model):
     #                     'leaves_taken' : rec.leaves_taken,}) for rec in varx]})
 
 
-    # @api.onchange('supp_approval_id')
-    # def get_supp_approval_id(self):
-    #     varc = []
-    #     for rec in self.supp_approval_id.ids:
-    #         supp = self.env['hr.employee'].browse(rec)
-    #         res_parter = self.env['res.partner'].search([('id','=',supp.work_contact_id.id)])
-    #         varc.append(res_parter)
-    #         self.report_field_id = [(4, reh.id) for reh in varc] 
+    @api.onchange('supp_approval_id')
+    def get_supp_approval_id(self):
+        varc = []
+        for rec in self.supp_approval_id.ids:
+            supp = self.env['hr.employee'].browse(rec)
+            res_parter = self.env['res.partner'].search([('id','=',supp.work_contact_id.id)])
+            varc.append(res_parter)
+            self.report_field_id = [(4, reh.id) for reh in varc] 
 
     
-    # @api.onchange('holiday_status_id')
-    # def get_rel_type_approver(self):
-    #     self.supp_approval_id = self.employee_id.parent_id.ids
-    #     if self.holiday_status_id.id in (2,5,11,13,14,15):
-    #         self.rel_type_approver = self.holiday_status_id.responsible_id.ids
-    #     if self.holiday_status_id.id in (4,12):
-    #         hr = self.env['res.users'].browse(11)
-    #         botx = []
-    #         botx.append(hr)
-    #         botx.append(self.employee_id.leave_manager_id)
-    #         self.rel_type_approver = [(4, reh.id) for reh in botx]
-    #     if self.holiday_status_id.id in (3,8):
-    #         self.rel_type_approver = self.employee_id.leave_manager_id.ids
+    @api.onchange('holiday_status_id')
+    def get_rel_type_approver(self):
+        self.supp_approval_id = self.employee_id.parent_id.ids
+        # if self.holiday_status_id.id in (2,5,11,13,14,15):
+        if self.holiday_status_id.id in (16,19,25,27,28,29):
+            self.rel_type_approver = self.holiday_status_id.responsible_id.ids
+        # if self.holiday_status_id.id in (4,12):
+        if self.holiday_status_id.id in (18,26):    
+            # hr = self.env['res.users'].browse(11)
+            hr = self.env['res.users'].browse(18)
+            botx = []
+            botx.append(hr)
+            botx.append(self.employee_id.leave_manager_id)
+            self.rel_type_approver = [(4, reh.id) for reh in botx]
+        # if self.holiday_status_id.id in (3,8):
+        if self.holiday_status_id.id in (17,22,15):
+            self.rel_type_approver = self.employee_id.leave_manager_id.ids
 
     
     def custom_add_follower(self, employee_id):
