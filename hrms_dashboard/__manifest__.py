@@ -22,7 +22,7 @@
 ###################################################################################
 {
     'name': "Open HRMS - HR Dashboard",
-    'version': '16.0.1.3',
+    'version': '16.0.1.4',
     'summary': """Open HRMS - HR Dashboard""",
     'description': """Open HRMS - HR Dashboard""",
     'category': 'Generic Modules/Human Resources',

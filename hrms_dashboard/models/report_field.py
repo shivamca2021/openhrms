@@ -22,26 +22,26 @@ class CustomHrLeave(models.Model):
             rec.check_leave_from = rec.request_date_from.strftime('%Y-%m-%d')
             rec.check_leave_to = rec.request_date_to.strftime('%Y-%m-%d')
 
-    @api.onchange('emp_remaining_leaves_ids')
-    def get_emp_remaining_leaves_ids(self):
-        varx = self.env['hr.leave.type'].search([])
-        print("VARX",varx)
+    # @api.onchange('emp_remaining_leaves_ids')
+    # def get_emp_remaining_leaves_ids(self):
+    #     varx = self.env['hr.leave.type'].search([])
+    #     print("VARX",varx)
 
-        if varx:                
-            self.write({'emp_remaining_leaves_ids': [(0,0,{
-                        'display_name' : rec.display_name,
-                        'remaining_leaves' : rec.remaining_leaves,
-                        'leaves_taken' : rec.leaves_taken,}) for rec in varx]})
+    #     if varx:                
+    #         self.write({'emp_remaining_leaves_ids': [(0,0,{
+    #                     'display_name' : rec.display_name,
+    #                     'remaining_leaves' : rec.remaining_leaves,
+    #                     'leaves_taken' : rec.leaves_taken,}) for rec in varx]})
 
 
-    @api.onchange('supp_approval_id')
-    def get_supp_approval_id(self):
-        varc = []
-        for rec in self.supp_approval_id.ids:
-            supp = self.env['hr.employee'].browse(rec)
-            res_parter = self.env['res.partner'].search([('id','=',supp.work_contact_id.id)])
-            varc.append(res_parter)
-            self.report_field_id = [(4, reh.id) for reh in varc] 
+    # @api.onchange('supp_approval_id')
+    # def get_supp_approval_id(self):
+    #     varc = []
+    #     for rec in self.supp_approval_id.ids:
+    #         supp = self.env['hr.employee'].browse(rec)
+    #         res_parter = self.env['res.partner'].search([('id','=',supp.work_contact_id.id)])
+    #         varc.append(res_parter)
+    #         self.report_field_id = [(4, reh.id) for reh in varc] 
 
     
     # @api.onchange('holiday_status_id')
