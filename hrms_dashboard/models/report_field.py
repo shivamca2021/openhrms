@@ -79,7 +79,7 @@ class CustomHrLeave(models.Model):
     
     @api.model_create_multi
     def create(self, vals_list):
-        # print("vals_list1",vals_list)
+        print("vals_list1",vals_list)
         leave_date_employees = defaultdict(list)
         employee_ids = []
         for values in vals_list:
@@ -137,7 +137,7 @@ class CustomHrLeave(models.Model):
                     self._check_double_validation_rules(employee_id, values.get('state', False))
         
         holidays = super(CustomHrLeave, self.with_context(mail_create_nosubscribe=True)).create(vals_list)
-        # print("holidays : ",holidays)
+        print("holidays : ",holidays)
 
         for holiday in holidays:
             if not self._context.get('leave_fast_create'):
@@ -157,14 +157,14 @@ class CustomHrLeave(models.Model):
                     holiday_sudo.message_post(body=_("The time off has been automatically approved"), subtype_xmlid="mail.mt_comment") # Message from OdooBot (sudo)
                 elif not self._context.get('import_file'):
                     holiday_sudo.activity_update()
-        # print("Return holidays : ",holidays)
+        print("Return holidays : ",holidays)
 
         #CODE for mail to Approver
         user = self.env.user
         force_send = not(self.env.context.get('import_file', False))
-        # print(vals_list[0].get('rel_type_approver')[0][-1])
+        print(vals_list[0].get('rel_type_approver')[0][-1])
         mailto = self.env['res.users'].browse(vals_list[0].get('rel_type_approver')[0][-1])
-        # print(mailto.self.email)
+        print(mailto.self.email)
         email_values = {
             'email_to': mailto.self.email,
             'email_cc': False,
