@@ -47,18 +47,14 @@ class CustomHrLeave(models.Model):
     @api.onchange('holiday_status_id')
     def get_rel_type_approver(self):
         self.supp_approval_id = self.employee_id.parent_id.ids
-        # if self.holiday_status_id.id in (2,5,11,13,14,15):
         if self.holiday_status_id.id in (16,19,25,27,28,29):
             self.rel_type_approver = self.holiday_status_id.responsible_id.ids
-        # if self.holiday_status_id.id in (4,12):
         if self.holiday_status_id.id in (18,26):    
-            # hr = self.env['res.users'].browse(11)
             hr = self.env['res.users'].browse(18)
             botx = []
             botx.append(hr)
             botx.append(self.employee_id.leave_manager_id)
             self.rel_type_approver = [(4, reh.id) for reh in botx]
-        # if self.holiday_status_id.id in (3,8):
         if self.holiday_status_id.id in (17,22,15):
             self.rel_type_approver = self.employee_id.leave_manager_id.ids
 
@@ -77,104 +73,104 @@ class CustomHrLeave(models.Model):
             self.message_subscribe(partner_ids = self.report_field_id.ids)
 
     
-    @api.model_create_multi
-    def create(self, vals_list):
-        print("vals_list1",vals_list)
-        leave_date_employees = defaultdict(list)
-        employee_ids = []
-        for values in vals_list:
-            if values.get('employee_id'):
-                employee_ids.append(values['employee_id'])
-                if values.get('date_from') and values.get('date_to'):
-                    date_from = fields.Datetime.to_datetime(values['date_from'])
-                    date_to = fields.Datetime.to_datetime(values['date_to'])
-                    if values['employee_id'] not in leave_date_employees[(date_from, date_to)]:
-                        leave_date_employees[(date_from, date_to)].append(values['employee_id'])
-        employees = self.env['hr.employee'].browse(employee_ids)
-        if self._context.get('leave_compute_date_from_to') and employees:
-            employee_leave_date_duration = defaultdict(dict)
-            for (date_from, date_to), employee_ids in leave_date_employees.items():
-                employee_leave_date_duration[(date_from, date_to)] = self._get_number_of_days_batch(date_from, date_to, employee_ids)
-            for values in vals_list:
-                employee_id = values.get('employee_id')
-                if employee_id and values.get('date_from') and values.get('date_to'):
-                    date_from = values.get('date_from')
-                    date_to = values.get('date_to')
-                    employee = employees.filtered(lambda emp: emp.id == employee_id)
-                    attendance_from, attendance_to = self._get_attendances(employee, date_from.date(), date_to.date())
-                    hour_from = float_to_time(attendance_from.hour_from)
-                    hour_to = float_to_time(attendance_to.hour_to)
-                    hour_from = hour_from.hour + hour_from.minute / 60
-                    hour_to = hour_to.hour + hour_to.minute / 60
+    # @api.model_create_multi
+    # def create(self, vals_list):
+    #     print("vals_list1",vals_list)
+    #     leave_date_employees = defaultdict(list)
+    #     employee_ids = []
+    #     for values in vals_list:
+    #         if values.get('employee_id'):
+    #             employee_ids.append(values['employee_id'])
+    #             if values.get('date_from') and values.get('date_to'):
+    #                 date_from = fields.Datetime.to_datetime(values['date_from'])
+    #                 date_to = fields.Datetime.to_datetime(values['date_to'])
+    #                 if values['employee_id'] not in leave_date_employees[(date_from, date_to)]:
+    #                     leave_date_employees[(date_from, date_to)].append(values['employee_id'])
+    #     employees = self.env['hr.employee'].browse(employee_ids)
+    #     if self._context.get('leave_compute_date_from_to') and employees:
+    #         employee_leave_date_duration = defaultdict(dict)
+    #         for (date_from, date_to), employee_ids in leave_date_employees.items():
+    #             employee_leave_date_duration[(date_from, date_to)] = self._get_number_of_days_batch(date_from, date_to, employee_ids)
+    #         for values in vals_list:
+    #             employee_id = values.get('employee_id')
+    #             if employee_id and values.get('date_from') and values.get('date_to'):
+    #                 date_from = values.get('date_from')
+    #                 date_to = values.get('date_to')
+    #                 employee = employees.filtered(lambda emp: emp.id == employee_id)
+    #                 attendance_from, attendance_to = self._get_attendances(employee, date_from.date(), date_to.date())
+    #                 hour_from = float_to_time(attendance_from.hour_from)
+    #                 hour_to = float_to_time(attendance_to.hour_to)
+    #                 hour_from = hour_from.hour + hour_from.minute / 60
+    #                 hour_to = hour_to.hour + hour_to.minute / 60
 
-                    values['date_from'] = self._get_start_or_end_from_attendance(hour_from, date_from.date(), employee)
-                    values['date_to'] = self._get_start_or_end_from_attendance(hour_to, date_to.date(), employee)
-                    values['request_date_from'], values['request_date_to'] = values['date_from'].date(), values['date_to'].date()
-                    values['number_of_days'] = employee_leave_date_duration[(date_from, date_to)][values['employee_id']]['days']
+    #                 values['date_from'] = self._get_start_or_end_from_attendance(hour_from, date_from.date(), employee)
+    #                 values['date_to'] = self._get_start_or_end_from_attendance(hour_to, date_to.date(), employee)
+    #                 values['request_date_from'], values['request_date_to'] = values['date_from'].date(), values['date_to'].date()
+    #                 values['number_of_days'] = employee_leave_date_duration[(date_from, date_to)][values['employee_id']]['days']
 
-        """ Override to avoid automatic logging of creation """
-        if not self._context.get('leave_fast_create'):
-            leave_types = self.env['hr.leave.type'].browse([values.get('holiday_status_id') for values in vals_list if values.get('holiday_status_id')])
-            mapped_validation_type = {leave_type.id: leave_type.leave_validation_type for leave_type in leave_types}
+    #     """ Override to avoid automatic logging of creation """
+    #     if not self._context.get('leave_fast_create'):
+    #         leave_types = self.env['hr.leave.type'].browse([values.get('holiday_status_id') for values in vals_list if values.get('holiday_status_id')])
+    #         mapped_validation_type = {leave_type.id: leave_type.leave_validation_type for leave_type in leave_types}
 
-            for values in vals_list:
-                employee_id = values.get('employee_id', False)
-                leave_type_id = values.get('holiday_status_id')
-                # Handle automatic department_id
-                if not values.get('department_id'):
-                    values.update({'department_id': employees.filtered(lambda emp: emp.id == employee_id).department_id.id})
+    #         for values in vals_list:
+    #             employee_id = values.get('employee_id', False)
+    #             leave_type_id = values.get('holiday_status_id')
+    #             # Handle automatic department_id
+    #             if not values.get('department_id'):
+    #                 values.update({'department_id': employees.filtered(lambda emp: emp.id == employee_id).department_id.id})
 
-                # Handle no_validation
-                if mapped_validation_type[leave_type_id] == 'no_validation':
-                    values.update({'state': 'confirm'})
+    #             # Handle no_validation
+    #             if mapped_validation_type[leave_type_id] == 'no_validation':
+    #                 values.update({'state': 'confirm'})
 
-                if 'state' not in values:
-                    # To mimic the behavior of compute_state that was always triggered, as the field was readonly
-                    values['state'] = 'confirm' if mapped_validation_type[leave_type_id] != 'no_validation' else 'draft'
+    #             if 'state' not in values:
+    #                 # To mimic the behavior of compute_state that was always triggered, as the field was readonly
+    #                 values['state'] = 'confirm' if mapped_validation_type[leave_type_id] != 'no_validation' else 'draft'
 
-                # Handle double validation
-                if mapped_validation_type[leave_type_id] == 'both':
-                    self._check_double_validation_rules(employee_id, values.get('state', False))
+    #             # Handle double validation
+    #             if mapped_validation_type[leave_type_id] == 'both':
+    #                 self._check_double_validation_rules(employee_id, values.get('state', False))
         
-        holidays = super(CustomHrLeave, self.with_context(mail_create_nosubscribe=True)).create(vals_list)
-        print("holidays : ",holidays)
+    #     holidays = super(CustomHrLeave, self.with_context(mail_create_nosubscribe=True)).create(vals_list)
+    #     print("holidays : ",holidays)
 
-        for holiday in holidays:
-            if not self._context.get('leave_fast_create'):
-                # Everything that is done here must be done using sudo because we might
-                # have different create and write rights
-                # eg : holidays_user can create a leave request with validation_type = 'manager' for someone else
-                # but they can only write on it if they are leave_manager_id
-                holiday_sudo = holiday.sudo()
-                print("created from here1")
-                holiday_sudo.custom_add_follower(employee_id)
-                if holiday.validation_type == 'manager':
-                    holiday_sudo.message_subscribe(partner_ids=holiday.employee_id.leave_manager_id.partner_id.ids)
-                if holiday.validation_type == 'no_validation':
-                    # Automatic validation should be done in sudo, because user might not have the rights to do it by himself
-                    holiday_sudo.action_validate()
-                    holiday_sudo.message_subscribe(partner_ids=[holiday._get_responsible_for_approval().partner_id.id])
-                    holiday_sudo.message_post(body=_("The time off has been automatically approved"), subtype_xmlid="mail.mt_comment") # Message from OdooBot (sudo)
-                elif not self._context.get('import_file'):
-                    holiday_sudo.activity_update()
-        print("Return holidays : ",holidays)
+    #     for holiday in holidays:
+    #         if not self._context.get('leave_fast_create'):
+    #             # Everything that is done here must be done using sudo because we might
+    #             # have different create and write rights
+    #             # eg : holidays_user can create a leave request with validation_type = 'manager' for someone else
+    #             # but they can only write on it if they are leave_manager_id
+    #             holiday_sudo = holiday.sudo()
+    #             print("created from here1")
+    #             holiday_sudo.custom_add_follower(employee_id)
+    #             if holiday.validation_type == 'manager':
+    #                 holiday_sudo.message_subscribe(partner_ids=holiday.employee_id.leave_manager_id.partner_id.ids)
+    #             if holiday.validation_type == 'no_validation':
+    #                 # Automatic validation should be done in sudo, because user might not have the rights to do it by himself
+    #                 holiday_sudo.action_validate()
+    #                 holiday_sudo.message_subscribe(partner_ids=[holiday._get_responsible_for_approval().partner_id.id])
+    #                 holiday_sudo.message_post(body=_("The time off has been automatically approved"), subtype_xmlid="mail.mt_comment") # Message from OdooBot (sudo)
+    #             elif not self._context.get('import_file'):
+    #                 holiday_sudo.activity_update()
+    #     print("Return holidays : ",holidays)
 
-        #CODE for mail to Approver
-        user = self.env.user
-        force_send = not(self.env.context.get('import_file', False))
-        print(vals_list[0].get('rel_type_approver')[0][-1])
-        mailto = self.env['res.users'].browse(vals_list[0].get('rel_type_approver')[0][-1])
-        email_values = {
-            'email_to': mailto.self.email,
-            'email_cc': False,
-            'auto_delete': True,
-            'recipient_ids': [],
-            'partner_ids': [],
-            'scheduled_date': False,
-        }
-        template = self.env.ref('hrms_dashboard.leave_approval_mail_template').sudo()
-        print("Template   :", template)
-        template.send_mail(user.id, force_send=force_send, raise_exception=True, email_values=email_values)
-        print("Mail Sent.","\n"*10)
+    #     #CODE for mail to Approver
+    #     user = self.env.user
+    #     force_send = not(self.env.context.get('import_file', False))
+    #     print(vals_list[0].get('rel_type_approver')[0][-1])
+    #     mailto = self.env['res.users'].browse(vals_list[0].get('rel_type_approver')[0][-1])
+    #     email_values = {
+    #         'email_to': mailto.self.email,
+    #         'email_cc': False,
+    #         'auto_delete': True,
+    #         'recipient_ids': [],
+    #         'partner_ids': [],
+    #         'scheduled_date': False,
+    #     }
+    #     template = self.env.ref('hrms_dashboard.leave_approval_mail_template').sudo()
+    #     print("Template   :", template)
+    #     template.send_mail(user.id, force_send=force_send, raise_exception=True, email_values=email_values)
+    #     print("Mail Sent.","\n"*10)
 
-        return holidays
+    #     return holidays
