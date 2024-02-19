@@ -667,3 +667,8 @@ class BroadFactor(models.Model):
                                       help="If check it will display in broad factor type")
 
     suprem_leaves_id = fields.Many2one('hr.leave', string="Supp REM")
+
+class InheritLeaveAllocation(models.Model):
+    _inherit = 'hr.leave.allocation'
+
+    remain_leaves_id = fields.Many2one('hr.leave', string="Remaining Leaves")
