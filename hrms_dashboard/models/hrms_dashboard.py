@@ -302,8 +302,8 @@ class Employee(models.Model):
             if len(user_leavz_notify) != 0:
                 employee[0]['user_leavz_notify'] = user_leavz_notify
             # ends
-            print("leaves_to_notify", employee[0].get('leaves_to_notify'))
-            print("user_leavz_notify", employee[0].get('user_leavz_notify'))
+            # print("leaves_to_notify", employee[0].get('leaves_to_notify'))
+            # print("user_leavz_notify", employee[0].get('user_leavz_notify'))
             return employee
         else:
             return False

@@ -1,5 +1,6 @@
 from odoo import models, fields, api, _
 from odoo.http import request
+from odoo.exceptions import ValidationError,UserError
 from collections import namedtuple, defaultdict
 from odoo.addons.resource.models.resource import float_to_time
 
@@ -72,6 +73,15 @@ class CustomHrLeave(models.Model):
         if employee.user_id:
             self.message_subscribe(partner_ids = self.report_field_id.ids)
 
+
+    def action_approve(self):
+        res = super(CustomHrLeave, self).action_approve()
+        print("PrinTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT")
+        user = self.env.user
+        if user.id not in self.rel_type_approver.ids:
+            raise UserError("You are Not Authorised to approve leaves.")
+        return res
+    
     
     @api.model_create_multi
     def create(self, vals_list):
