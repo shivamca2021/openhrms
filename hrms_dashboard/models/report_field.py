@@ -12,7 +12,7 @@ class CustomHrLeave(models.Model):
     report_field_id = fields.Many2many('res.partner', string="Res Approver")
     supp_approval_id = fields.Many2many('hr.employee', 'hr_leave_employee_tabletwo', string="Notified To")
     # approved_by_id = fields.Many2one('hr.employee', string='Approved By')
-    emp_remaining_leaves_ids = fields.One2many('hr.leave.type','suprem_leaves_id', string="Remaining Leaves")
+    # emp_remaining_leaves_ids = fields.One2many('hr.leave.type','suprem_leaves_id', string="Remaining Leaves")
     
     check_leave_from = fields.Char(string="Check Leave From", store=True, compute='compute_leave_from_to')
     check_leave_to = fields.Char(string="Check Leave To", store=True, compute='compute_leave_from_to')
@@ -23,16 +23,15 @@ class CustomHrLeave(models.Model):
             rec.check_leave_from = rec.request_date_from.strftime('%Y-%m-%d')
             rec.check_leave_to = rec.request_date_to.strftime('%Y-%m-%d')
 
-    # @api.onchange('name')
-    @api.onchange('emp_remaining_leaves_ids')
-    def get_emp_remaining_leaves_ids(self):
-        varx = self.env['hr.leave.type'].search([])
-        print("VARX",varx)
-        if varx:                
-            self.write({'emp_remaining_leaves_ids': [(0,0,{
-                        'display_name' : rec.display_name,
-                        'remaining_leaves' : rec.remaining_leaves,
-                        'leaves_taken' : rec.leaves_taken,}) for rec in varx]})
+    # @api.onchange('emp_remaining_leaves_ids')
+    # def get_emp_remaining_leaves_ids(self):
+    #     varx = self.env['hr.leave.type'].search([])
+    #     print("VARX",varx)
+    #     if varx:                
+    #         self.write({'emp_remaining_leaves_ids': [(0,0,{
+    #                     'display_name' : rec.display_name,
+    #                     'remaining_leaves' : rec.remaining_leaves,
+    #                     'leaves_taken' : rec.leaves_taken,}) for rec in varx]})
 
 
     @api.onchange('supp_approval_id')
