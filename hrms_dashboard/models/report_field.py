@@ -31,8 +31,8 @@ class CustomHrLeave(models.Model):
         print("VARX",varx)
         if varx:                
             self.write({'emp_remaining_leaves_ids': [(0,0,{
-                        'display_name' : rec.name,
-                        'remaining_leaves' : rec.duration_display,
+                        'name' : rec.name,
+                        'duration_display' : rec.duration_display,
                         'leaves_taken' : rec.number_of_days,}) for rec in varx ]})
 
 
