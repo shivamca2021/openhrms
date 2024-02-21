@@ -27,7 +27,7 @@ class CustomHrLeave(models.Model):
     # @api.onchange('emp_remaining_leaves_ids')
     # def get_emp_remaining_leaves_ids(self):
     #     uid = self.env.user.id
-    #     varx = self.env['hr.leave.allocation'].search([('state','=','validate')])
+    #     varx = self.env['hr.leave.allocation'].search([('employee_id.user_id', '=', self.env.user),('state','=','validate')])
     #     print("VARX",varx)
     #     if varx:         
     #         self.write({'emp_remaining_leaves_ids': [(0,0,{
@@ -37,8 +37,7 @@ class CustomHrLeave(models.Model):
             
     @api.onchange('emp_remaining_leaves_ids')
     def get_emp_remaining_leaves_ids(self):
-        uid = self.env.user.id
-        varx = self.env['hr.leave.type'].search([('employee_id.user_id', '=', uid)])
+        varx = self.env['hr.leave.type'].search([('employee_id.user_id', '=', self.env.user)])
         print("VARX",varx)
         if varx:                
             self.write({'emp_remaining_leaves_ids': [(0,0,{
