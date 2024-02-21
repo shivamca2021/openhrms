@@ -24,18 +24,17 @@ class CustomHrLeave(models.Model):
             rec.check_leave_from = rec.request_date_from.strftime('%Y-%m-%d')
             rec.check_leave_to = rec.request_date_to.strftime('%Y-%m-%d')
 
-    # @api.onchange('name')
-    @api.onchange('emp_remaining_leaves_ids')
-    def get_emp_remaining_leaves_ids(self):
-        uid = self.env.user.id
-        varx = self.env['hr.leave.allocation'].search([('employee_id.user_id', '=', uid),('state','=','validate')])
-        print("VARX",varx)
-        if varx:        
-            self.write({'emp_remaining_leaves_ids': [(5, 0, 0)]})        
-            self.write({'emp_remaining_leaves_ids': [(0,0,{
-                        'name' : rec.name,
-                        'duration_display' : rec.duration_display,
-                        'leaves_taken' : rec.number_of_days,}) for rec in varx ]})
+    # @api.onchange('emp_remaining_leaves_ids')
+    # def get_emp_remaining_leaves_ids(self):
+    #     uid = self.env.user.id
+    #     varx = self.env['hr.leave.allocation'].search([('employee_id.user_id', '=', uid),('state','=','validate')])
+    #     print("VARX",varx)
+    #     if varx:        
+    #         self.write({'emp_remaining_leaves_ids': [(5, 0, 0)]})        
+    #         self.write({'emp_remaining_leaves_ids': [(0,0,{
+    #                     'name' : rec.name,
+    #                     'duration_display' : rec.duration_display,
+    #                     'leaves_taken' : rec.number_of_days,}) for rec in varx ]})
 
 
     @api.onchange('supp_approval_id')
