@@ -24,12 +24,13 @@ class CustomHrLeave(models.Model):
             rec.check_leave_from = rec.request_date_from.strftime('%Y-%m-%d')
             rec.check_leave_to = rec.request_date_to.strftime('%Y-%m-%d')
 
-    @api.onchange('name')
-    # @api.onchange('emp_remaining_leaves_ids')
+    # @api.onchange('name')
+    @api.onchange('emp_remaining_leaves_ids')
     def get_emp_remaining_leaves_ids(self):
         varx = self.env['hr.leave.allocation'].search([('create_uid','=',self.env.user.id)])
         print("VARX",varx)
-        if varx:                
+        if varx:        
+            self.write({'emp_remaining_leaves_ids': [(5, 0, 0)]})        
             self.write({'emp_remaining_leaves_ids': [(0,0,{
                         'name' : rec.name,
                         'duration_display' : rec.duration_display,
