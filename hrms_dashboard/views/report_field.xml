@@ -45,6 +45,7 @@
                             <tree editable="bottom">
                                 <field name="display_name" />
                                 <field name="remaining_leaves" />
+                                <field name="duration_display" />
                                 <field name="leaves_taken" />
                             </tree>
                         </field>
