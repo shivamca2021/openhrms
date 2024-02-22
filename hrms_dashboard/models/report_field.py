@@ -33,7 +33,7 @@ class CustomHrLeave(models.Model):
         pdb.set_trace()
         if varx:         
             self.write({'emp_remaining_leaves_ids': [(0,0,{
-                        'name' : rec.display_name,
+                        'display_name' : rec.name,
                         'duration_display' : rec.duration_display,
                         'leaves_taken' : rec.leaves_taken,}) for rec in varx ]}) 
 
