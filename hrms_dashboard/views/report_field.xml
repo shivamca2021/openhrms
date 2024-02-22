@@ -41,7 +41,7 @@
             <xpath expr="//form/sheet/div/div/group[@name='col_left']" position="after">
                 <notebook>
                     <page string="Remaining Leave's">
-                        <field name="emp_remaining_leaves_ids" >
+                        <field name="emp_remaining_leaves_ids" force_save="1">
                             <tree editable="bottom">
                                 <field name="display_name" />
                                 <!-- <field name="remaining_leaves" /> -->

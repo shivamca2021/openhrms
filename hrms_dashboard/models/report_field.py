@@ -26,14 +26,13 @@ class CustomHrLeave(models.Model):
 
     @api.onchange('emp_remaining_leaves_ids')
     def get_emp_remaining_leaves_ids(self):
-        uid = self.env.user.id
         varx = self.env['hr.leave.allocation'].search([('employee_id', '=', self.employee_id.id)])
         print("VARX",varx)
         if varx:         
             self.write({'emp_remaining_leaves_ids': [(0,0,{
-                        'display_name' : rec.name,
-                        'duration_display' : rec.duration_display,
-                        'leaves_taken' : rec.leaves_taken,}) for rec in varx ]}) 
+                                                    'display_name' : rec.name,
+                                                    'duration_display' : rec.duration_display,
+                                                    'leaves_taken' : rec.leaves_taken,}) for rec in varx ]}) 
 
     # @api.onchange('emp_remaining_leaves_ids')
     # def get_emp_remaining_leaves_ids(self):
