@@ -35,11 +35,14 @@ class CustomHrLeave(models.Model):
                         'duration_display' : rec.duration_display,
                         'holiday_type': self.holiday_type,
                         'employee_id': self.env.user.employee_id.id,
+                        'date_from':self.request_date_from,
+                        'allocation_type': 'regular',
+                        'holiday_status_id': self.holiday_status_id.id,
                         'leaves_taken' : rec.leaves_taken,}) for rec in varx ]})
             
     # @api.onchange('emp_remaining_leaves_ids')
     # def get_emp_remaining_leaves_ids(self):
-    #     varx = self.env['hr.leave.type'].search([('employee_id.user_id', '=', self.env.user)])
+    #     varx = self.env['hr.leave.type'].search([])
     #     print("VARX",varx)
     #     if varx:                
     #         self.write({'emp_remaining_leaves_ids': [(0,0,{
