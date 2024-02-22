@@ -34,7 +34,7 @@ class CustomHrLeave(models.Model):
                         'name' : rec.display_name,
                         'duration_display' : rec.duration_display,
                         'holiday_type': self.holiday_type,
-                        'employee_id': uid.employee_id,
+                        'employee_id': self.env.user.employee_id.id,
                         'leaves_taken' : rec.leaves_taken,}) for rec in varx ]})
             
     # @api.onchange('emp_remaining_leaves_ids')
