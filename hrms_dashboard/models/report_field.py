@@ -12,8 +12,8 @@ class CustomHrLeave(models.Model):
     report_field_id = fields.Many2many('res.partner', string="Res Approver")
     supp_approval_id = fields.Many2many('hr.employee', 'hr_leave_employee_tabletwo', string="Notified To")
     # approved_by_id = fields.Many2one('hr.employee', string='Approved By')
-    # emp_remaining_leaves_ids = fields.One2many('hr.leave.type','suprem_leaves_id', string="Remaining Leaves")
-    emp_remaining_leaves_ids = fields.One2many('hr.leave.allocation','remain_leaves_id', string="Remaining Leaves")
+    emp_remaining_leaves_ids = fields.One2many('hr.leave.type','suprem_leaves_id', string="Remaining Leaves")
+    # emp_remaining_leaves_ids = fields.One2many('hr.leave.allocation','remain_leaves_id', string="Remaining Leaves")
     
     check_leave_from = fields.Char(string="Check Leave From", store=True, compute='compute_leave_from_to')
     check_leave_to = fields.Char(string="Check Leave To", store=True, compute='compute_leave_from_to')
@@ -87,7 +87,6 @@ class CustomHrLeave(models.Model):
 
     def action_approve(self):
         res = super(CustomHrLeave, self).action_approve()
-        print("PrinTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT")
         user = self.env.user
         if user.id not in self.rel_type_approver.ids:
             raise UserError("You are Not Authorised to approve leaves.")
