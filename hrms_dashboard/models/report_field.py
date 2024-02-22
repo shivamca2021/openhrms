@@ -24,31 +24,26 @@ class CustomHrLeave(models.Model):
             rec.check_leave_from = rec.request_date_from.strftime('%Y-%m-%d')
             rec.check_leave_to = rec.request_date_to.strftime('%Y-%m-%d')
 
-    @api.onchange('emp_remaining_leaves_ids')
-    def get_emp_remaining_leaves_ids(self):
-        uid = self.env.user.id
-        varx = self.env['hr.leave.allocation'].search([('employee_id.user_id', '=', uid),('state','=','validate')])
-        print("VARX",varx)
-        if varx:         
-            self.write({'emp_remaining_leaves_ids': [(0,0,{
-                        'name' : rec.display_name,
-                        'duration_display' : rec.duration_display,
-                        'holiday_type': self.holiday_type,
-                        'employee_id': self.env.user.employee_id.id,
-                        'date_from':self.request_date_from,
-                        'allocation_type': 'regular',
-                        'holiday_status_id': self.holiday_status_id.id,
-                        'leaves_taken' : rec.leaves_taken,}) for rec in varx ]})
-            
     # @api.onchange('emp_remaining_leaves_ids')
     # def get_emp_remaining_leaves_ids(self):
-    #     varx = self.env['hr.leave.type'].search([])
+    #     uid = self.env.user.id
+    #     varx = self.env['hr.leave.allocation'].search([('employee_id.user_id', '=', uid),('state','=','validate')])
     #     print("VARX",varx)
-    #     if varx:                
+    #     if varx:         
     #         self.write({'emp_remaining_leaves_ids': [(0,0,{
-    #                     'display_name' : rec.display_name,
-    #                     'remaining_leaves' : rec.remaining_leaves,
-    #                     'leaves_taken' : rec.leaves_taken,}) for rec in varx]})
+    #                     'name' : rec.display_name,
+    #                     'duration_display' : rec.duration_display,
+    #                     'leaves_taken' : rec.leaves_taken,}) for rec in varx ]}) 
+
+    @api.onchange('emp_remaining_leaves_ids')
+    def get_emp_remaining_leaves_ids(self):
+        varx = self.env['hr.leave.type'].search([])
+        print("VARX",varx)
+        if varx:                
+            self.write({'emp_remaining_leaves_ids': [(0,0,{
+                        'display_name' : rec.display_name,
+                        'remaining_leaves' : rec.remaining_leaves,
+                        'leaves_taken' : rec.leaves_taken,}) for rec in varx]})
 
 
     @api.onchange('supp_approval_id')
