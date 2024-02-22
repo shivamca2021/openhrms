@@ -44,7 +44,7 @@
                         <field name="emp_remaining_leaves_ids" >
                             <tree editable="bottom">
                                 <field name="display_name" />
-                                <field name="remaining_leaves" />
+                                <!-- <field name="remaining_leaves" /> -->
                                 <field name="duration_display" />
                                 <field name="leaves_taken" />
                             </tree>
