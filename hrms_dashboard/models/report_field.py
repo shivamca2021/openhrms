@@ -43,7 +43,6 @@ class CustomHrLeave(models.Model):
                         'name':rec.name,
                         'display_name' : rec.display_name,
                         'remaining_leaves' : rec.remaining_leaves,
-                        # 'duration_display' : rec.remaining_leaves,
                         'leaves_taken' : rec.leaves_taken,}) for rec in varx]})
 
 
