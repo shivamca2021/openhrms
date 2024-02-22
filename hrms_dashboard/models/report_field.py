@@ -24,26 +24,26 @@ class CustomHrLeave(models.Model):
             rec.check_leave_from = rec.request_date_from.strftime('%Y-%m-%d')
             rec.check_leave_to = rec.request_date_to.strftime('%Y-%m-%d')
 
-    # @api.onchange('emp_remaining_leaves_ids')
-    # def get_emp_remaining_leaves_ids(self):
-    #     uid = self.env.user.id
-    #     varx = self.env['hr.leave.allocation'].search([('employee_id.user_id', '=', self.env.user),('state','=','validate')])
-    #     print("VARX",varx)
-    #     if varx:         
-    #         self.write({'emp_remaining_leaves_ids': [(0,0,{
-    #                     'name' : rec.display_name,
-    #                     'duration_display' : rec.duration_display,
-    #                     'leaves_taken' : rec.leaves_taken,}) for rec in varx ]})
-            
     @api.onchange('emp_remaining_leaves_ids')
     def get_emp_remaining_leaves_ids(self):
-        varx = self.env['hr.leave.type'].search([('employee_id.user_id', '=', self.env.user)])
+        uid = self.env.user.id
+        varx = self.env['hr.leave.allocation'].search([('employee_id.user_id', '=', self.env.user),('state','=','validate')])
         print("VARX",varx)
-        if varx:                
+        if varx:         
             self.write({'emp_remaining_leaves_ids': [(0,0,{
-                        'display_name' : rec.display_name,
-                        'remaining_leaves' : rec.remaining_leaves,
-                        'leaves_taken' : rec.leaves_taken,}) for rec in varx]})
+                        'name' : rec.display_name,
+                        'duration_display' : rec.duration_display,
+                        'leaves_taken' : rec.leaves_taken,}) for rec in varx ]})
+            
+    # @api.onchange('emp_remaining_leaves_ids')
+    # def get_emp_remaining_leaves_ids(self):
+    #     varx = self.env['hr.leave.type'].search([('employee_id.user_id', '=', self.env.user)])
+    #     print("VARX",varx)
+    #     if varx:                
+    #         self.write({'emp_remaining_leaves_ids': [(0,0,{
+    #                     'display_name' : rec.display_name,
+    #                     'remaining_leaves' : rec.remaining_leaves,
+    #                     'leaves_taken' : rec.leaves_taken,}) for rec in varx]})
 
 
     @api.onchange('supp_approval_id')
