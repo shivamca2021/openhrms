@@ -43,6 +43,7 @@ class CustomHrLeave(models.Model):
             self.write({'emp_remaining_leaves_ids': [(0,0,{
                         'display_name' : rec.display_name,
                         'remaining_leaves' : rec.remaining_leaves,
+                        'duration_display' : rec.remaining_leaves,
                         'leaves_taken' : rec.leaves_taken,}) for rec in varx]})
 
 
