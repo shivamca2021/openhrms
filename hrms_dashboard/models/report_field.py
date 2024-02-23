@@ -36,11 +36,8 @@ class CustomHrLeave(models.Model):
 
     @api.onchange('emp_remaining_leaves_ids')
     def get_emp_remaining_leaves_ids(self):
-        self.emp_remaining_leaves_ids = [(5, 0, 0)]
-        # self.write({
-        #     'notification_ids': [(5, 0, 0)],
-        # })
-        
+        self.write({'emp_remaining_leaves_ids': [(5, 0, 0)],})
+        print("Data Cleared from ONE2MANY ++++++++++++++++++")
         varx = self.env['hr.leave.type'].search([])
         print("VARX",varx)
         if varx:                
