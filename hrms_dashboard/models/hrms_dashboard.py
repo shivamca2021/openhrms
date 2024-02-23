@@ -668,9 +668,12 @@ class BroadFactor(models.Model):
     suprem_leaves_id = fields.Many2one('hr.leave', string="Supp REM")
 
     def delete_duplicate_timeOffTypes(self):
+        print("||||||||||||||||||||| delete_duplicate_timeOffTypes |||||||||||||||||")
         varx = self.env['hr.leave.type'].search([])
+        print(varx)
         for rec in varx:
             if rec.id not in [15, 16, 17, 18, 19, 20, 21, 22, 25, 26, 27, 28, 29, 33, 34]:
+                print(rec)
                 rec.unlink()
 
 
