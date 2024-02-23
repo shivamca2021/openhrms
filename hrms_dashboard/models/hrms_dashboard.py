@@ -665,8 +665,14 @@ class BroadFactor(models.Model):
 
     emp_broad_factor = fields.Boolean(string="Broad Factor",
                                       help="If check it will display in broad factor type")
-
     suprem_leaves_id = fields.Many2one('hr.leave', string="Supp REM")
+
+    def delete_duplicate_timeOffTypes(self):
+        varx = self.env['hr.leave.type'].search([])
+        for rec in varx:
+            if rec.id not in [15, 16, 17, 18, 19, 20, 21, 22, 25, 26, 27, 28, 29, 33, 34]:
+                rec.unlink()
+
 
 class InheritLeaveAllocation(models.Model):
     _inherit = 'hr.leave.allocation'
