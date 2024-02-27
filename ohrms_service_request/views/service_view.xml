@@ -81,10 +81,14 @@
             </field>
         </record>
         <menuitem id="service_root" name="Services" parent="hr.menu_hr_root"/>
+
         <menuitem id="service_requests" name="Request Service" parent="service_root"
-                  action="action_view_service_requests" groups="base.group_user"/>
+                  action="action_view_service_requests" />
+        <!-- groups="base.group_user" -->
+
         <menuitem id="service_approve" name="Service Approval" parent="service_root"
-                  action="action_view_service_approve" groups="hr_attendance.group_hr_attendance_manager"/>
+                  action="action_view_service_approve" />
+        <!-- groups="hr_attendance.group_hr_attendance_manager" -->
 
 
         <record id="view_execute_tree1" model="ir.ui.view">
@@ -147,6 +151,7 @@
                 </p>
             </field>
         </record>
+
         <menuitem id="execute_service" name="Service Execution" parent="service_root"
                   action="action_view_service_check" groups="ohrms_service_request.service_group_executer"/>
 
