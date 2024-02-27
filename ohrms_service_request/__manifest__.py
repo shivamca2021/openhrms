@@ -22,7 +22,7 @@
 ###################################################################################
 {
     'name': "Open HRMS Service Request",
-    'version': '16.0.1.1',
+    'version': '16.0.1.0',
     'summary': """For Requesting Service""",
     'description': """Requesting Services""",
     'category': 'Human Resource',
