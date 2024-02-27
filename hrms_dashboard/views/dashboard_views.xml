@@ -111,10 +111,10 @@
                   action="hr_holidays.open_view_public_holiday"
                   parent="hrms_dashboard.menu_hamberger"/>
         
-        <menuitem id="menu_hamberger_service_request"
+        <!-- <menuitem id="menu_hamberger_service_request"
                   name="View Request's"
                   action="ohrms_service_request.action_view_service_requests"
-                  parent="hrms_dashboard.menu_hamberger"/>
+                  parent="hrms_dashboard.menu_hamberger"/> -->
 
         <menuitem id="menu_hamberger_monthly_report"
                   name="Monthly Attendance"
