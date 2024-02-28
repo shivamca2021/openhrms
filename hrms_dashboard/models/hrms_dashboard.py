@@ -48,39 +48,39 @@ class Employee(models.Model):
                            'number_of_days': varx2})
                 
                 
-    @api.model
-    def create(self, vals):
-        res = super(Employee ,self).create(vals)
-        if res.id:
-            hol_clsl_id = self.env['hr.leave.type'].search([('id','=',17)])
-            hol_pl_id = self.env['hr.leave.type'].search([('id','=',15)])
-            val_slcl = {
-                    'name':"{}'s Casual / Sick Leave ( CL/SL )".format(res.name),
-                    'holiday_status_id': hol_clsl_id.id,
-                    'allocation_type': 'regular',
-                    'date_from':date.today(),
-                    'number_of_days': float(12.00),
-                    'number_of_days_display': float(12.00),
-                    'holiday_type': 'employee',
-                    'employee_id': res.id,
-                    'multi_employee' : False,
-                    'employee_ids': res.ids,
-                }
-            val_pl = {
-                    'name':"{}'s Paid Time Off ( PL )".format(res.name),
-                    'holiday_status_id': hol_pl_id.id,
-                    'allocation_type': 'regular',
-                    'date_from':date.today(),
-                    'number_of_days': float(1.00),
-                    'number_of_days_display': float(1.00),
-                    'holiday_type': 'employee',
-                    'employee_id': res.id,
-                    'multi_employee' : False,
-                    'employee_ids': res.ids,
-                }
-            self.env['hr.leave.allocation'].create(val_slcl)
-            self.env['hr.leave.allocation'].create(val_pl)
-        return res
+    # @api.model
+    # def create(self, vals):
+    #     res = super(Employee ,self).create(vals)
+    #     if res.id:
+    #         hol_clsl_id = self.env['hr.leave.type'].search([('id','=',17)])
+    #         hol_pl_id = self.env['hr.leave.type'].search([('id','=',15)])
+    #         val_slcl = {
+    #                 'name':"{}'s Casual / Sick Leave ( CL/SL )".format(res.name),
+    #                 'holiday_status_id': hol_clsl_id.id,
+    #                 'allocation_type': 'regular',
+    #                 'date_from':date.today(),
+    #                 'number_of_days': float(12.00),
+    #                 'number_of_days_display': float(12.00),
+    #                 'holiday_type': 'employee',
+    #                 'employee_id': res.id,
+    #                 'multi_employee' : False,
+    #                 'employee_ids': res.ids,
+    #             }
+    #         val_pl = {
+    #                 'name':"{}'s Paid Time Off ( PL )".format(res.name),
+    #                 'holiday_status_id': hol_pl_id.id,
+    #                 'allocation_type': 'regular',
+    #                 'date_from':date.today(),
+    #                 'number_of_days': float(1.00),
+    #                 'number_of_days_display': float(1.00),
+    #                 'holiday_type': 'employee',
+    #                 'employee_id': res.id,
+    #                 'multi_employee' : False,
+    #                 'employee_ids': res.ids,
+    #             }
+    #         self.env['hr.leave.allocation'].create(val_slcl)
+    #         self.env['hr.leave.allocation'].create(val_pl)
+    #     return res
 
 
     @api.model
