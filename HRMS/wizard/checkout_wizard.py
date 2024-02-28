@@ -23,19 +23,19 @@ class HrmsCheckoutWizard(models.Model):
     attendance_checkout_ids = fields.One2many(
         'attendance.checkout.line', 'checkout_wiz_id', string='Check Out')
 
-    @api.model
-    def default_get(self, fields):
-        res = super(HrmsCheckoutWizard, self).default_get(fields)
-        # Get the Indian timezone
-        indian_timezone = pytz.timezone('Asia/Kolkata')
-        if self._context.get('last_day') == 'yes':
-            last_day_attendance = self.env['attendance.record'].search(
-                [('employee', '=', self.env.user.employee_id.id)], order='id desc', limit=1)
-            res['name'] = last_day_attendance.checkin_time.strftime("%m/%d/%Y, %H:%M:%S")
-        # Get the current date and time as a string in the desired format in the Indian timezone
-        else:
-            res['name'] = datetime.datetime.now(indian_timezone).strftime("%m/%d/%Y, %H:%M:%S")
-        return res
+    # @api.model
+    # def default_get(self, fields):
+    #     res = super(HrmsCheckoutWizard, self).default_get(fields)
+    #     # Get the Indian timezone
+    #     indian_timezone = pytz.timezone('Asia/Kolkata')
+    #     if self._context.get('last_day') == 'yes':
+    #         last_day_attendance = self.env['attendance.record'].search(
+    #             [('employee', '=', self.env.user.employee_id.id)], order='id desc', limit=1)
+    #         res['name'] = last_day_attendance.checkin_time.strftime("%m/%d/%Y, %H:%M:%S")
+    #     # Get the current date and time as a string in the desired format in the Indian timezone
+    #     else:
+    #         res['name'] = datetime.datetime.now(indian_timezone).strftime("%m/%d/%Y, %H:%M:%S")
+    #     return res
 
     @api.model_create_multi
     def create(self, vals_list):
