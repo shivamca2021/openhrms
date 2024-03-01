@@ -680,4 +680,5 @@ class BroadFactor(models.Model):
 class InheritLeaveAllocation(models.Model):
     _inherit = 'hr.leave.allocation'
 
-    remain_leaves_id = fields.Many2one('hr.leave', string="Remaining Leaves")
+    # remain_leaves_id = fields.Many2one('hr.leave', string="Remaining Leaves")
+    wizard_leave_id = fields.Many2one('remaining.leaves.wizard', string="Wizard Leave")
