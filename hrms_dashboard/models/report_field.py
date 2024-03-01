@@ -26,7 +26,7 @@ class CustomHrLeave(models.Model):
 
             
     def get_remaining_leaves_details(self):
-        # print("||||||||||||||Printing from Wizard|||||||||||||||")
+        print("||||||||||||||Printing from Wizard|||||||||||||||")
         view_id = self.env.ref("hrms_dashboard.remaining_leaves_wizardform").id,
         return {
             'name': ("Employee Remaining Leaves"),
