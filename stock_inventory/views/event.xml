@@ -47,7 +47,7 @@
                                 <field name="assigned_date"/>
                                 <field name="description"/>
 
-                                <field name="assigned_employee_id">
+                                <field name="assigned_employee_id" />
                             </group>
                         </group>
                     </sheet>
@@ -65,7 +65,7 @@
                     <field name="state" />
                     <field name="serial_number"/>
                     <field name="assigned_date"/>
-                    <field name="assigned_employee_id">
+                    <field name="assigned_employee_id" />
                     <!-- <field name="location"/>
                     <field name="seats"/> -->
                 </tree>
