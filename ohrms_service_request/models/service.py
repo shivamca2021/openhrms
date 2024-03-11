@@ -1,27 +1,6 @@
 # -- coding: utf-8 --
-###################################################################################
-#    A part of Open HRMS Project <https://www.openhrms.com>
-#
-#    Cybrosys Technologies Pvt. Ltd.
-#    Copyright (C) 2022-TODAY Cybrosys Technologies (<https://www.cybrosys.com>).
-#    Author: Cybrosys (<https://www.cybrosys.com>)
-#
-#    This program is free software: you can modify
-#    it under the terms of the GNU Affero General Public License (AGPL) as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <https://www.gnu.org/licenses/>.
-#
-###################################################################################
 from odoo import fields, api, models, _
-from odoo.exceptions import ValidationError
+from odoo.exceptions import ValidationError,UserError
 from datetime import date
 
 class Service(models.Model):
@@ -63,7 +42,7 @@ class Service(models.Model):
     def onchange_service_type(self):
         for rec in self:
             if rec.service_type == 'reimbursement':
-                rec.service_executer = 26
+                rec.service_executer = 45
 
     @api.model
     def create(self, vals):
@@ -142,7 +121,17 @@ class Executer(models.Model):
 
     def service_check(self):
         self.test.sudo().state = 'check'
-        self.write({
-            'state_execute': 'check'
-        })
-        return
+        if self.service_type == 'reimbursement' and self.user_has_groups('stock_inventory.group_customuser_HR'):
+            self.write({
+                'state_execute': 'check'
+            })
+        elif self.service_type == 'infra_issue' and self.user_has_groups('stock_inventory.group_customuser_Infra'):
+             self.write({
+                'state_execute': 'check'
+            })
+        elif self.service_type == 'other_Request' and self.user_has_groups('stock_inventory.group_customuser_HR') or self.user_has_groups('stock_inventory.group_customuser_HR'):
+             self.write({
+                'state_execute': 'check'
+            })  
+        else:
+            raise UserError('You are Not Authorised to check the service')
