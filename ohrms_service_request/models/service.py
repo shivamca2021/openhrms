@@ -120,18 +120,30 @@ class Executer(models.Model):
     type_service = fields.Char(string='Service Type', help="Service type")
 
     def service_check(self):
-        self.test.sudo().state = 'check'
-        if self.test.service_type == 'reimbursement' and self.user_has_groups('stock_inventory.group_customuser_HR'):
-            self.write({
-                'state_execute': 'check'
-            })
-        elif self.test.service_type == 'infra_issue' and self.user_has_groups('stock_inventory.group_customuser_Infra'):
-             self.write({
-                'state_execute': 'check'
-            })
-        elif self.test.service_type == 'other_Request' and self.user_has_groups('stock_inventory.group_customuser_HR') or self.user_has_groups('stock_inventory.group_customuser_HR'):
-             self.write({
-                'state_execute': 'check'
-            })  
+        # if self.test.service_type == 'reimbursement' and self.user_has_groups('stock_inventory.group_customuser_HR'):
+        #     self.test.sudo().state = 'check'
+        #     self.write({
+        #         'state_execute': 'check'
+        #     })
+        # elif self.test.service_type == 'infra_issue' and self.user_has_groups('stock_inventory.group_customuser_Infra'):
+        #     self.test.sudo().state = 'check'
+        #     self.write({
+        #         'state_execute': 'check'
+        #     })
+        # elif self.test.service_type == 'other_Request' and self.user_has_groups('stock_inventory.group_customuser_HR') or self.user_has_groups('stock_inventory.group_customuser_HR'):
+        #     self.test.sudo().state = 'check'
+        #     self.write({
+        #         'state_execute': 'check'
+        #     })  
+        # else:
+        #     raise UserError('You are Not Authorised to check the service')
+        if  (self.test.service_type == 'reimbursement' and self.user_has_groups('stock_inventory.group_customuser_HR')) or \
+            (self.test.service_type == 'infra_issue' and self.user_has_groups('stock_inventory.group_customuser_Infra')) or \
+            (self.test.service_type == 'other_Request' and (self.user_has_groups('stock_inventory.group_customuser_HR') or self.user_has_groups('stock_inventory.group_customuser_HR'))):
+                self.test.sudo().state = 'check'
+                self.write({
+                    'state_execute': 'check'
+                })
         else:
             raise UserError('You are Not Authorised to check the service')
+

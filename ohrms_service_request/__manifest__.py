@@ -1,7 +1,7 @@
 # -- coding: utf-8 --
 {
     'name': "Open HRMS Service Request",
-    'version': '16.0.1.2',
+    'version': '16.0.1.3',
     'summary': """For Requesting Service""",
     'description': """Requesting Services""",
     'category': 'Human Resource',
