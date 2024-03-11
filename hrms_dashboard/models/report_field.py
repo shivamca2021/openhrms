@@ -24,19 +24,27 @@ class CustomHrLeave(models.Model):
             rec.check_leave_from = rec.request_date_from.strftime('%Y-%m-%d')
             rec.check_leave_to = rec.request_date_to.strftime('%Y-%m-%d')
 
-            
-    def get_remaining_leaves_details(self):
-        print("||||||||||||||Printing from Wizard|||||||||||||||")
-        view_id = self.env.ref("hrms_dashboard.remaining_leaves_wizardform").id,
-        return {
-            'name': ("Employee Remaining Leaves"),
-            'res_model': 'remaining.leaves.wizard',
-            'type': 'ir.actions.act_window',
-            'context':{'default_wizard_emp_id': self.employee_id.id},
-            'view_mode': 'form',
-            'views':[[view_id,'form']],
-            'target':'new',
-	    }
+    # @api.onchange('emp_remaining_leaves_ids')
+    # def get_emp_remaining_leaves_ids(self):
+    #     varx = self.env['hr.leave.allocation'].search([('employee_id', '=', self.employee_id.id)])
+    #     print("VARX",varx)
+    #     if varx:         
+    #         self.write({'emp_remaining_leaves_ids': [(0,0,{
+    #                                                 'display_name' : rec.name,
+    #                                                 'duration_display' : rec.duration_display,
+    #                                                 'leaves_taken' : rec.leaves_taken,}) for rec in varx ]}) 
+
+    @api.onchange('emp_remaining_leaves_ids')
+    def get_emp_remaining_leaves_ids(self):
+        self.write({'emp_remaining_leaves_ids': [(5, 0, 0)],})
+        varx = self.env['hr.leave.type'].search([])
+        print("VARX",varx)
+        if varx:                
+            self.write({'emp_remaining_leaves_ids': [(0,0,{
+                        'name':rec.name,
+                        'display_name' : rec.display_name,
+                        'remaining_leaves' : rec.remaining_leaves,
+                        'leaves_taken' : rec.leaves_taken,}) for rec in varx]})
 
 
     @api.onchange('supp_approval_id')

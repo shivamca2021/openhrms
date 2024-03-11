@@ -3,4 +3,3 @@ access_hr_employee_broad_factor,access_hr_employee_broad_factor,model_hr_employe
 access_hr_employee_payslip,access_hr_employee_payslip,hr_payroll_community.model_hr_payslip,base.group_user,1,0,0,0
 access_monthly_attendance_data,access.monthly.attendance.data,model_monthly_attendance_data,base.group_user,1,1,1,1
 access_monthly_attendance_wizard,access.monthly.attendance.wizard,model_monthly_attendance_wizard,base.group_user,1,1,1,1
-access_remaining_leaves_wizard,access.remaining.leaves.wizard,model_remaining_leaves_wizard,base.group_user,1,1,1,1
