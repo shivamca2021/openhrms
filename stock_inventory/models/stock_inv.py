@@ -59,6 +59,9 @@ class StockInventoryApp(models.Model):
     seats = fields.Integer(string="Seats")
     state = fields.Selection([('live', 'Live'),('damaged','Damaged'),('all', 'All'), ('deleted', 'Deleted'), ('scrap', 'Scrap')], default='live', string="State")
 
+    assigned_employee_id = fields.Many2one('hr.employee',string='Assigned to')
+    
+
     def get_default_date():
         return date.today()
     assigned_date = fields.Date(string="Assigned Date", default=get_default_date())

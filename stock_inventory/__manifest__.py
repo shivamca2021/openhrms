@@ -2,7 +2,7 @@
 
 {
     'name': 'Stock Inventory',
-    'version': '16.0.1.3',
+    'version': '16.0.1.4',
     'category': 'Generic Modules',
     'summary': """
         Stock Inventory
@@ -12,7 +12,7 @@
     'company': 'Evon Technologies Pvt Ltd',
     'maintainer': 'Evon Technologies Pvt Ltd',
     'website': 'https://evontech.com/',
-    'depends': ['base',],
+    'depends': ['base','hr'],
     'data': [
         'security/new_sec_groups.xml',
         'security/ir.model.access.csv',
