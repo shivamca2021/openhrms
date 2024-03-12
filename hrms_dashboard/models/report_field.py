@@ -60,15 +60,15 @@ class CustomHrLeave(models.Model):
     @api.onchange('holiday_status_id')
     def get_rel_type_approver(self):
         self.supp_approval_id = self.employee_id.parent_id.ids
-        if self.holiday_status_id.id in (16,19,25,27,28,29):
+        if self.holiday_status_id.id in (175,182,173,183,184,180):
             self.rel_type_approver = self.holiday_status_id.responsible_id.ids
-        if self.holiday_status_id.id in (18,26):    
+        if self.holiday_status_id.id in (176, 174):    
             hr = self.env['res.users'].browse(18)
             botx = []
-            botx.append(hr)
+            botx.append(hr) 
             botx.append(self.employee_id.leave_manager_id)
             self.rel_type_approver = [(4, reh.id) for reh in botx]
-        if self.holiday_status_id.id in (17,22,15):
+        if self.holiday_status_id.id in (177, 179, 172):
             self.rel_type_approver = self.employee_id.leave_manager_id.ids
 
     
