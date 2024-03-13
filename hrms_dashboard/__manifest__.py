@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': "Open HRMS - HR Dashboard",
-    'version': '16.0.1.53A',
+    'version': '16.0.1.53A1',
     'summary': """Open HRMS - HR Dashboard""",
     'description': """Open HRMS - HR Dashboard""",
     'category': 'Generic Modules/Human Resources',
