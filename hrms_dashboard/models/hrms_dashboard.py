@@ -672,13 +672,16 @@ class BroadFactor(models.Model):
         varx = self.env['hr.leave.type'].search([])
         print(varx)
         for rec in varx:
-            # if rec.id not in [15, 16, 17, 18, 19, 20, 21, 22, 25, 26, 27, 28, 29, 33, 34]:
+            # if rec.id not in [3,8,1,4,12,2,5,11,12,13,14,15,6,19]:
             if rec.id not in [177, 172, 173, 174, 175, 176, 178, 179, 180, 181, 182, 183, 184]:
                 print(rec)
                 rec.unlink()
+                
+class HrleaveNotebook(models.Model):
+    _name = 'hr.leave.notebook'
 
+    notebook_id = fields.Many2one('hr.leave', string=" Notebook ID")
 
-class InheritLeaveAllocation(models.Model):
-    _inherit = 'hr.leave.allocation'
-
-    remain_leaves_id = fields.Many2one('hr.leave', string="Remaining Leaves")
+    display_name = fields.Char(string="Display Name")
+    remaining_leaves = fields.Float(string="Remaining Leaves")
+    leaves_taken = fields.Float(string="Leaves Taken")
