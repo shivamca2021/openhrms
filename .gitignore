@@ -57,6 +57,7 @@ Thumbs.db
 *.mov
 *.wmv
 *.bak
+*.pyc
 .env
 
 # various virtualenv
