@@ -59,6 +59,7 @@ Thumbs.db
 *.bak
 *.pyc
 .env
+*.cpython-38.pyc
 
 # various virtualenv
 /bin/
