@@ -1,5 +1,6 @@
 <odoo>
   <data>
+    <!-- Hide Menu from the frontend -->
     <record model="ir.ui.menu" id="hr_holidays.menu_hr_holidays_my_leaves">
         <field name="name">My Leaves</field>
     </record>
@@ -17,6 +18,27 @@
     </record>
 
     <record model="ir.ui.menu" id="hr_attendance.menu_hr_attendance_my_attendances">
+        <field name="action" eval="False" />
+    </record>
+
+    <!-- For Hiding Dashboard from the frontend -->
+    <record model="ir.ui.menu" id="base.menu_board_root">
+        <field name="action" eval="False" />
+    </record>
+
+    <record model="ir.ui.menu" id="base.menu_reporting_dashboard">
+        <field name="action" eval="False" />
+    </record>
+
+    <record model="ir.ui.menu" id="spreadsheet_dashboard.spreadsheet_dashboard_menu_configuration_dashboards">
+        <field name="action" eval="False" />
+    </record>
+
+    <record model="ir.ui.menu" id="spreadsheet_dashboard.spreadsheet_dashboard_menu_dashboard">
+        <field name="action" eval="False" />
+    </record>
+
+    <record model="ir.ui.menu" id="spreadsheet_dashboard.spreadsheet_dashboard_menu_root">
         <field name="action" eval="False" />
     </record>
   </data>

@@ -1,2 +1,0 @@
-# openhrms
-evonopenhrms
