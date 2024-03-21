@@ -21,14 +21,14 @@
 ###################################################################################
 {
     'name': 'Open HRMS Multi-Company',
-    'version': '16.0.1.0.0',
+    'version': '16.0.1.1',
     'summary': """Enables Multi-Company""",
     'description': 'This module enables multi company features',
     'category': 'Generic Modules/Human Resources',
     'author': 'Cybrosys Techno solutions,Open HRMS',
     'company': 'Cybrosys Techno Solutions',
     'website': "https://www.openhrms.com",
-    'depends': ['base', 'hr','hr_contract', 'hr_payroll_community', 'hr_expense', 'hr_attendance', 'hr_employee_transfer'],
+    'depends': ['base', 'hr','hr_contract', 'hr_payroll_community', 'hr_expense', 'hr_attendance',],
     'data': [
         'views/hr_company_view.xml',
         'views/multi_company_view.xml',
