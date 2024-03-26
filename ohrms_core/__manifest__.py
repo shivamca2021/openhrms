@@ -1,6 +1,6 @@
 {
     'name': 'Open HRMS Core',
-    'version': '16.0.1.1',
+    'version': '16.0.1.2',
     'summary': """Open HRMS Suit: It brings all Open HRMS modules""",
     'description': """Openhrms, Main module of Open HRMS, It brings all others into a single module, Payroll, Payroll Accounting,Expense,
                 Dashboard, Employees, Employee Document, Resignation, Salary Advance, Loan Management, Gratuity, Service Request, Gosi, WPS Report, Reminder, Multi Company, Shift Management, Employee History,
@@ -20,6 +20,7 @@
         'hr_attendance',
         'hr_holidays',
         'hr_payroll_community',
+        'hr_expense',
         'hr_leave_request_aliasing',
         'hr_timesheet',
         'oh_employee_creation_from_user',
