@@ -2,7 +2,7 @@
 
 {
     'name': 'Stock Inventory',
-    'version': '16.0.1.6A',
+    'version': '16.0.1.7',
     'category': 'Generic Modules',
     'summary': """
         Stock Inventory
