@@ -98,7 +98,7 @@
 
         <menuitem id="menu_hamberger_stock_inventory"
                   name="Stock Inventory"
-                  action="stock_inventory.action_custom_event"
+                  action="stock_inventory.action_custom_my_devices"
                   parent="hrms_dashboard.menu_hamberger"/>
 
         <menuitem id="menu_hamberger_recruitment"
