@@ -80,6 +80,14 @@
             <field name="search_view_id" ref="stock_inventory_view_tree"/>
         </record>
 
+        <record id="action_custom_my_devices" model="ir.actions.act_window">
+            <field name="name">My Devices</field>
+            <field name="res_model">stock.inventory</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('assigned_employee_id.user_id', '=', uid)]</field>
+            <field name="search_view_id" ref="stock_inventory_view_tree"/>
+        </record>
+
         <menuitem id="menu_event_root" 
         name="Stock Inventory"
         web_icon="stock_inventory,static/description/accessories.png"
@@ -89,5 +97,12 @@
             name="Accessories"
             parent="stock_inventory.menu_event_root"
             action="action_custom_event"
+            groups="stock_inventory.group_customuser_Infra"
             sequence="3" />
+
+        <menuitem id="menu_my_devices_childroot"
+            name="My devices"
+            parent="stock_inventory.menu_event_root"
+            action="action_custom_my_devices"
+            sequence="5" />
 </odoo>
