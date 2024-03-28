@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': "Open HRMS - HR Dashboard",
-    'version': '16.0.1.57B',
+    'version': '16.0.1.57C',
     'summary': """Open HRMS - HR Dashboard""",
     'description': """Open HRMS - HR Dashboard""",
     'category': 'Generic Modules/Human Resources',
@@ -13,7 +13,7 @@
     'depends': ['base','hr', 'hr_holidays', 'hr_timesheet', 'hr_payroll_community', 'hr_contract',
                 'hr_attendance', 'hr_timesheet_attendance', 'calendar', 'project','stock_inventory',
                 'hr_recruitment', 'event','spreadsheet_dashboard', 'hr_resignation',
-                'hr_reward_warning'],
+                'hr_reward_warning', 'utm', 'link_tracker'],
     'external_dependencies': {
         'python': ['pandas'],
     },

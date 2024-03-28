@@ -54,5 +54,19 @@
     <record model="ir.ui.menu" id="hr_resignation.employee_resignation_request">
         <field name="action" eval="False" />
     </record>
+    
+    <!-- HIDE Link Tracker -->
+    <record model="ir.ui.menu" id="utm.menu_link_tracker_root">
+        <field name="action" eval="False" />
+    </record>
+
+    <record model="ir.ui.menu" id="utm.marketing_utm">
+        <field name="action" eval="False" />
+    </record>
+    
+    <record model="ir.ui.menu" id="link_tracker.link_tracker_menu_main">
+        <field name="action" eval="False" />
+    </record>
+
   </data>
 </odoo>
