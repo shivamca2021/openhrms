@@ -42,7 +42,12 @@
         <field name="action" eval="False" />
     </record>
 
+    <!-- # Hide Resignation module  -->
     <record model="ir.ui.menu" id="hr_resignation.employee_resignation">
+        <field name="action" eval="False" />
+    </record>
+
+    <record model="ir.ui.menu" id="hr_resignation.employee_resignation_approved">
         <field name="action" eval="False" />
     </record>
 
