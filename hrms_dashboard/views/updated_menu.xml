@@ -41,5 +41,13 @@
     <record model="ir.ui.menu" id="spreadsheet_dashboard.spreadsheet_dashboard_menu_root">
         <field name="action" eval="False" />
     </record>
+
+    <record model="ir.ui.menu" id="hr_resignation.employee_resignation">
+        <field name="action" eval="False" />
+    </record>
+
+    <record model="ir.ui.menu" id="hr_resignation.employee_resignation_request">
+        <field name="action" eval="False" />
+    </record>
   </data>
 </odoo>
