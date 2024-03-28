@@ -63,6 +63,18 @@
     <record model="ir.ui.menu" id="utm.marketing_utm">
         <field name="action" eval="False" />
     </record>
+
+    <record model="ir.ui.menu" id="utm.menu_utm_campaign_act">
+        <field name="action" eval="False" />
+    </record>
+
+    <record model="ir.ui.menu" id="utm.menu_utm_medium">
+        <field name="action" eval="False" />
+    </record>
+
+    <record model="ir.ui.menu" id="utm.menu_utm_source">
+        <field name="action" eval="False" />
+    </record>
     
     <record model="ir.ui.menu" id="link_tracker.link_tracker_menu_main">
         <field name="action" eval="False" />
