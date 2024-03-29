@@ -2,7 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import api, fields, models
-import datetime
+from datetime import datetime
 import pytz
 from odoo.addons.web.controllers.session import Session
 
@@ -34,7 +34,7 @@ class HrmsCheckoutWizard(models.Model):
             res['name'] = last_day_attendance.checkin_time.strftime("%m/%d/%Y, %H:%M:%S")
         # Get the current date and time as a string in the desired format in the Indian timezone
         else:
-            res['name'] = datetime.datetime.now(indian_timezone).strftime("%m/%d/%Y, %H:%M:%S")
+            res['name'] = datetime.now(indian_timezone).strftime("%m/%d/%Y, %H:%M:%S")
         return res
 
     @api.model_create_multi
@@ -48,7 +48,7 @@ class HrmsCheckoutWizard(models.Model):
             self.env.user.action_id = False
             last_day_attendance = self.env['attendance.record'].search(
                 [('employee', '=', self.env.user.employee_id.id)], order='id desc', limit=1)
-            last_day_attendance.checkout_time = datetime.datetime.utcnow()
+            last_day_attendance.checkout_time = datetime.now()
         self.env['hr.employee'].sudo().browse(self.env.user.employee_id.id).attendance_manual(
             'hr_attendance.hr_attendance_action_my_attendances')
         Session.logout(self)

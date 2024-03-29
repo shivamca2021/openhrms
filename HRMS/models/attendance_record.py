@@ -1,6 +1,6 @@
  # -*- coding: utf-8 -*-
 
-import datetime
+from datetime import datetime
 import random
 
 from odoo import api, models, fields, _
@@ -29,7 +29,7 @@ class EvonAttendance(models.Model):
                 hours_and_minutes = round(total_hours, 2)
                 rec.total_hours = hours_and_minutes
             else:
-                total_time_delta = datetime.datetime.utcnow() - rec.checkin_time
+                total_time_delta = datetime.now() - rec.checkin_time
                 total_hours = total_time_delta.total_seconds() / 3600  # 3600 seconds in an hour
                 hours_and_minutes = round(total_hours, 2)
                 rec.total_hours = hours_and_minutes

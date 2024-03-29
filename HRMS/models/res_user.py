@@ -1,8 +1,5 @@
  # -*- coding: utf-8 -*-
 
-from datetime import datetime
-import random
-
 from odoo import api, models, fields, _
 from odoo.addons.http_routing.models.ir_http import slug, unslug
 from odoo.addons.website.tools import text_from_html

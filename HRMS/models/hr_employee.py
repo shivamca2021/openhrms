@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import datetime
+from datetime import datetime
 import random
 
 from odoo import api, models, fields, _
@@ -80,25 +80,25 @@ class HrmsEmployee(models.Model):
         defaults = super(HrmsEmployee, self).attendance_manual(next_action, entered_pin)
         if self.attendance_state == 'checked_in':
             vals = {
-                'checkin_time': datetime.datetime.utcnow(),
+                'checkin_time': datetime.now(),
                 'employee': self.id,
-                'today': datetime.datetime.utcnow().strftime("%d")
+                'today': datetime.now().strftime("%d")
 
             }
             attendance_rec = self.env['attendance.record'].search(
-                [('today', '=', datetime.datetime.utcnow().strftime("%d")),
+                [('today', '=', datetime.now().strftime("%d")),
                  ('employee', '=', self.env.user.employee_id.id)])
             if len(attendance_rec) == 0:
                 last_day_attendance = self.env['attendance.record'].search([('employee', '=', self.env.user.employee_id.id)], order='id desc', limit=1)
                 if not last_day_attendance.checkout_time:
-                    last_day_attendance.checkout_time = datetime.datetime.utcnow()
+                    last_day_attendance.checkout_time = datetime.now()
                 self.env['attendance.record'].create(vals)
             else:
                 pass
         elif self.attendance_state == 'checked_out':
             attendance_rec = self.env['attendance.record'].search(
-                [('today', '=', datetime.datetime.utcnow().strftime("%d"))], limit=1)
-            attendance_rec.checkout_time = datetime.datetime.utcnow()
+                [('today', '=', datetime.now().strftime("%d"))], limit=1)
+            attendance_rec.checkout_time = datetime.now()
         return defaults
 
 
