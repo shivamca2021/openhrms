@@ -270,31 +270,14 @@ class Employee(models.Model):
                 else:
                     final_data.append(rec)
                     k = rec
+
             today = {'day': datetime.today().strftime("%A"), 
                      'check_in': str(datetime.today())[0:16], 
                      'check_out': '-', 
                      'hours': 0.0}
-            final_data.append({today})
+            final_data.append(today)
             
-            # nml_days = []
-            # wkd_days = []
-            # newlist = []
-            # for rec in sorted_data:
-            #     if rec['day'] == 'Sunday':
-            #         wkd_days.append(rec)
-            #     else:
-            #         nml_days.append(rec)
-            # k = 0
-            # if len(wkd_days) >= 2 :
-            #     for res in wkd_days:
-            #         if k == res['check_in']:
-            #             del res
-            #         else:
-            #             k = res['check_in']
-            #             newlist.append(res)
- 
-            # final_data1 = nml_days + newlist
-            # print("final_data1 : ", final_data1)
+        
             # post_sorted = sorted(final_data1, key=lambda x: x['check_in'])
             # print("post_sorted : ", post_sorted)
 
