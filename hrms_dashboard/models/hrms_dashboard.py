@@ -257,7 +257,7 @@ class Employee(models.Model):
             print("attendance_data","==============",attendance_data)
             
             sorted_data = sorted(attendance_data, key=lambda x: x['check_in'])
-            print("Sorted_data : ", sorted_data)
+            print("sorted_data : ", sorted_data)
 
             # commented Final Data from here 
             # final_data = sorted_data[::-1][0:7]
@@ -270,13 +270,12 @@ class Employee(models.Model):
                 else:
                     final_data.append(rec)
                     k = rec
-
-            today = {'day': datetime.today().strftime("%A"), 
-                     'check_in': str(datetime.today())[0:16], 
-                     'check_out': '-', 
-                     'hours': 0.0}
-            final_data.append(today)
-            
+            # today = {'day': datetime.today().strftime("%A"), 
+            #          'check_in': str(datetime.today())[0:16], 
+            #          'check_out': '-', 
+            #          'hours': 0.0}
+            # final_data.append(today)
+            print("final_data : ", final_data)
         
             # post_sorted = sorted(final_data1, key=lambda x: x['check_in'])
             # print("post_sorted : ", post_sorted)
@@ -292,7 +291,8 @@ class Employee(models.Model):
             # print("final_lst : ", final_lst)
 
             if attendance_data:
-                employee[0]['last_7_days'] = final_data[::-1]
+                # final_data[::-1]
+                employee[0]['last_7_days'] = final_data[0:8]
             if attendances:
                 employee[0]['attendance_count'] = len(attendances)
             if self.env.user.has_group('base.group_system'):
