@@ -291,8 +291,7 @@ class Employee(models.Model):
             # print("final_lst : ", final_lst)
 
             if attendance_data:
-                # final_data[::-1]
-                employee[0]['last_7_days'] = final_data[0:8]
+                employee[0]['last_7_days'] = final_data[-7:]
             if attendances:
                 employee[0]['attendance_count'] = len(attendances)
             if self.env.user.has_group('base.group_system'):
