@@ -127,6 +127,7 @@ class Employee(models.Model):
         cr = self._cr
         cr.execute(query)
         leaves_today = cr.fetchall()
+
         first_day = date.today().replace(day=1)
         last_day = (date.today() + relativedelta(months=1, day=1)) - timedelta(
             1)
@@ -139,6 +140,7 @@ class Employee(models.Model):
         cr.execute(query)
         leaves_this_month = cr.fetchall()
         print("leaves_this_month",leaves_this_month)
+
         leaves_alloc_req = self.env['hr.leave.allocation'].sudo().search_count(
             [('state', 'in', ['confirm', 'validate1'])])
         timesheet_count = self.env['account.analytic.line'].sudo().search_count(
@@ -204,6 +206,7 @@ class Employee(models.Model):
             days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
             attendance_data = []
             attendance_date = []
+            final_data = []
             
             varx = self.env['hr.leave'].search([('user_id','=',self.env.user.id)])
             # print("VARX",varx)
@@ -255,8 +258,24 @@ class Employee(models.Model):
             
             sorted_data = sorted(attendance_data, key=lambda x: x['check_in'])
             print("Sorted_data : ", sorted_data)
-            final_data = sorted_data[::-1][0:7]
-            print("final_data : ", final_data)
+
+            # commented Final Data from here 
+            # final_data = sorted_data[::-1][0:7]
+            # print("final_data : ", final_data)
+            
+            k = sorted_data[0]
+            for rec in sorted_data:
+                if rec.get('day') == k.get('day'):
+                    del rec
+                else:
+                    final_data.append(rec)
+                    k = rec
+            today = {'day': datetime.today().strftime("%A"), 
+                     'check_in': str(datetime.today())[0:16], 
+                     'check_out': '-', 
+                     'hours': 0.0}
+            final_data.append({today})
+            
             # nml_days = []
             # wkd_days = []
             # newlist = []
