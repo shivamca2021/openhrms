@@ -240,7 +240,7 @@ class Employee(models.Model):
                     'hours': round(rec.worked_hours,2), 
                 })
                 attendance_date.append(rec.check_in.strftime("%d-%m-%y"))
-            print("ATTENDANCE_DATE",attendance_date)
+            # print("ATTENDANCE_DATE",attendance_date)
             
             for i in range(0, len(attendance_record)-1):
                 current_date = attendance_record[i].check_in
@@ -256,39 +256,29 @@ class Employee(models.Model):
                         })
             print("attendance_data","==============",attendance_data)
             
-            sorted_data = sorted(attendance_data, key=lambda x: x['check_in'])
-            print("sorted_data : ", sorted_data)
+            # sorted_data = sorted(attendance_data, key=lambda x: x['check_in'])
+            # print("sorted_data : ", sorted_data)
 
-            # commented Final Data from here 
-            # final_data = sorted_data[::-1][0:7]
-            # print("final_data : ", final_data)
+            date_sorted_data = sorted(attendance_data, key=lambda x: x['check_in'])
+            month_sorted_data = sorted(date_sorted_data, key=lambda x: x['check_in'][3:5])
+            year_sorted_data = sorted(month_sorted_data, key=lambda x: x['check_in'][6:8])
+            print("year_sorted_data","==============",year_sorted_data)
             
-            k = sorted_data[0]
-            for rec in sorted_data:
+            k = year_sorted_data[0]
+            if year_sorted_data[1]:
+                final_data.append(year_sorted_data[0])
+            for rec in year_sorted_data:
                 if rec.get('day') == k.get('day'):
                     del rec
                 else:
                     final_data.append(rec)
-                    k = rec
+                    k = rec    
             # today = {'day': datetime.today().strftime("%A"), 
-            #          'check_in': str(datetime.today())[0:16], 
+            #          'check_in': datetime.today().strftime("%d-%m-%y %H:%M"), 
             #          'check_out': '-', 
             #          'hours': 0.0}
             # final_data.append(today)
             print("final_data : ", final_data)
-        
-            # post_sorted = sorted(final_data1, key=lambda x: x['check_in'])
-            # print("post_sorted : ", post_sorted)
-
-            # final_lst = []
-            # for line in post_sorted:
-            #     cut = '-23'
-            #     supvar1 = line['check_in'].split(cut)[0]
-            #     stripped = supvar1+'-2023'
-            #     supvar2 = datetime.strptime(stripped, '%d-%m-%Y').date()
-            #     if supvar2 in leave_list:
-            #         final_lst.append(line)
-            # print("final_lst : ", final_lst)
 
             if attendance_data:
                 employee[0]['last_7_days'] = final_data[-7:]

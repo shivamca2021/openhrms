@@ -91,19 +91,9 @@
                   action="calendar.action_calendar_event"
                   parent="hrms_dashboard.menu_hamberger"/>
 
-        <menuitem id="menu_hamberger_project"
-                  name="Project"
-                  action="project.open_view_project_all"
-                  parent="hrms_dashboard.menu_hamberger"/>
-
         <menuitem id="menu_hamberger_stock_inventory"
                   name="Stock Inventory"
                   action="stock_inventory.action_custom_my_devices"
-                  parent="hrms_dashboard.menu_hamberger"/>
-
-        <menuitem id="menu_hamberger_recruitment"
-                  name="Recruitment"
-                  action="hr_recruitment.action_hr_job"
                   parent="hrms_dashboard.menu_hamberger"/>
 
         <menuitem id="menu_hamberger_public_holidays"
@@ -121,10 +111,7 @@
                   action="hrms_dashboard.action_hr_monthly_attendance_wizard"
                   parent="hrms_dashboard.menu_hamberger"/>
 
-
     </data>
-
-
 
     <record id="broad_factor_sort_order" model="ir.ui.view">
         <field name="name">hr.holidays.view.tree</field>

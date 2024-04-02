@@ -41,9 +41,8 @@ class CustomHrLeave(models.Model):
     def get_emp_remaining_leaves_ids(self):
         self.write({'emp_remaining_leaves_ids': [(5, 0, 0)],})
         varx = self.env['hr.leave.type'].search([])
-        print("VARX",varx)
-        if varx:    
-            print(":::::::::::::::::::::Print here again:::::::::::::::::::")            
+        # print("VARX",varx)
+        if varx:               
             self.write({'emp_remaining_leaves_ids': [(0,0,{
                         'display_name':rec.name,
                         'remaining_leaves' : rec.remaining_leaves,
@@ -76,7 +75,7 @@ class CustomHrLeave(models.Model):
 
     
     def custom_add_follower(self, employee_id):
-        print("KINI",self.supp_approval_id.ids)
+        # print(" ",self.supp_approval_id.ids)
         if self.supp_approval_id.ids:
             varc = []
             for rec in self.supp_approval_id.ids:

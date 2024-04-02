@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': "Open HRMS - HR Dashboard",
-    'version': '16.0.1.57H',
+    'version': '16.0.1.58A',
     'summary': """Open HRMS - HR Dashboard""",
     'description': """Open HRMS - HR Dashboard""",
     'category': 'Generic Modules/Human Resources',
@@ -11,8 +11,8 @@
     'maintainer': 'Evon technologies',
     'website': "https://www.openhrms.com",
     'depends': ['base','hr', 'hr_holidays', 'hr_timesheet', 'hr_payroll_community', 'hr_contract',
-                'hr_attendance', 'hr_timesheet_attendance', 'calendar', 'project','stock_inventory',
-                'hr_recruitment', 'event','spreadsheet_dashboard', 'hr_resignation',
+                'hr_attendance', 'hr_timesheet_attendance', 'calendar','stock_inventory',
+                'event','spreadsheet_dashboard', 'hr_resignation',
                 'hr_reward_warning', 'utm', 'link_tracker'],
     'external_dependencies': {
         'python': ['pandas'],
