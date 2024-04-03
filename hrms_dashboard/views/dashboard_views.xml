@@ -51,11 +51,11 @@
                   sequence="5"
                   parent="hrms_dashboard.menu_hrms_dashboard"/>
 
-        <!-- <menuitem id="menu_hamberger_attendance"
+        <menuitem id="menu_hamberger_attendance"
                   name="Attendance"
                   action="hrms_dashboard.hr_attendance_action_modified"
                   sequence="7"
-                   parent="hrms_dashboard.menu_hrms_dashboard"/> -->
+                   parent="hrms_dashboard.menu_hrms_dashboard"/>
 
         <menuitem id="menu_hamberger_timesheets"
                   name="Timesheet"
