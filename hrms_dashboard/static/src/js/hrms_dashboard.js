@@ -359,18 +359,19 @@ var HrDashboard = AbstractAction.extend({
         var options = {
             on_reverse_breadcrumb: this.on_reverse_breadcrumb,
         };
-
+        
         // var xmlId = 'hrms_dashboard.dashboard_attendance_treeview';
         var xmlId = 'hrms_dashboard.hr_attendance_action_modified';
-        var listViewId = false;
+        var listViewId = 'hrms_dashboard.hr_attendance_action_modified';
         await this._rpc({
                 model: 'ir.model.data',
                 method: 'search',
                 args: [[['module', '=', 'hrms_dashboard'], ['name', '=', xmlId]]],
             }).then(function (resIds) {
                 if (resIds && resIds.length > 0) {            
-            listViewId = resIds[0];
-                } else {
+                    listViewId = resIds[0];
+                    } 
+                else {
                     console.error("List view not found for XML ID", xmlId);
                 }
             });
