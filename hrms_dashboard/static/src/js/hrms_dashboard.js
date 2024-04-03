@@ -353,9 +353,9 @@ var HrDashboard = AbstractAction.extend({
         currentMonth.setHours(0, 0, 0, 0);
         e.stopPropagation();
         e.preventDefault();
-        // var options = {
-        //     on_reverse_breadcrumb: this.on_reverse_breadcrumb,
-        // };
+        var options = {
+            on_reverse_breadcrumb: this.on_reverse_breadcrumb,
+        };
 
         // var xmlId = 'hrms_dashboard.dashboard_attendance_treeview';
         var xmlId = 'hrms_dashboard.view_attendance_tree';
@@ -383,7 +383,7 @@ var HrDashboard = AbstractAction.extend({
                     },
             domain: [['employee_id','=', this.login_employee.id], ['create_date', '<', nextMonth],['create_date', '>=', currentMonth]],
             target: 'current',
-        });
+        }, options);
     },
 
 

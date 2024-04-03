@@ -144,7 +144,9 @@
                 </div>
             </div> -->
 
-            <div class="col-md-2 col-sm-6 login_broad_factor oh-payslip oh-broad-factor">
+            <!-- LOGIN HOURS  -->
+
+            <!-- <div class="col-md-2 col-sm-6 login_broad_factor oh-payslip oh-broad-factor">
                 <div class="oh-card">
                     <div class="oh-card-body">
                         <div class="stat-widget-one">
@@ -156,7 +158,8 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
+
             <div class="col-md-2 col-sm-2 hr_attendance_login">
                 <div class="oh-card">
                     <div class="oh-card-body">
@@ -254,6 +257,21 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="col-sm-12 col-lg-12 login_broad_factor oh-payslip oh-broad-factor">
+                        <div class="oh-card">
+                            <div class="oh-card-body">
+                                <div class="stat-widget-one">
+                                    <div class="stat-icon"><i class="fa fa-bar-chart"/></div>
+                                    <div class="stat-content">
+                                        <div class="stat-text">Login Hours</div>
+                                        <div class="stat-digit"><t t-esc="widget.login_employee['login_hours']"/></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                   </div>
                 </div>
                 </div>
