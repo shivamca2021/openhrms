@@ -359,19 +359,18 @@ var HrDashboard = AbstractAction.extend({
         var options = {
             on_reverse_breadcrumb: this.on_reverse_breadcrumb,
         };
-        
+
         // var xmlId = 'hrms_dashboard.dashboard_attendance_treeview';
-        var xmlId = 'hrms_dashboard.hr_attendance_action_modified';
-        var listViewId = 'hrms_dashboard.hr_attendance_action_modified';
+        var xmlId = 'hrms_dashboard.view_attendance_tree';
+        var listViewId = false;
         await this._rpc({
                 model: 'ir.model.data',
                 method: 'search',
                 args: [[['module', '=', 'hrms_dashboard'], ['name', '=', xmlId]]],
             }).then(function (resIds) {
                 if (resIds && resIds.length > 0) {            
-                    listViewId = resIds[0];
-                    } 
-                else {
+            listViewId = resIds[0];
+                } else {
                     console.error("List view not found for XML ID", xmlId);
                 }
             });
@@ -383,9 +382,11 @@ var HrDashboard = AbstractAction.extend({
             views: [[listViewId, 'list'], [false, 'form']],
             // views: [[false, 'list'], [false, 'form']],
             context: {
-                //   'search_default_month': true,
+                    "search_default_today":1, 
+                    "group_by": "check_in"
                     },
-            domain: [['employee_id','=', this.login_employee.id], ['create_date', '<', nextMonth],['create_date', '>=', currentMonth]],
+            // domain: [['employee_id','=', this.login_employee.id], ['create_date', '<', nextMonth],['create_date', '>=', currentMonth]],
+            domain: [['employee_id','=', this.login_employee.id],],
             target: 'current',
         }, options);
     },
