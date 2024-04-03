@@ -284,7 +284,6 @@ var HrDashboard = AbstractAction.extend({
     },
 
     //employee broad factor
-
     employee_broad_factor: function(e) {
 
         var self = this;
@@ -315,7 +314,6 @@ var HrDashboard = AbstractAction.extend({
     },
 
     //Leave Calendar
-
     hr_e_calendar:function(e) {
         var self = this 
         e.stopPropagation();
@@ -344,7 +342,6 @@ var HrDashboard = AbstractAction.extend({
     },
 
     //hr timesheets
-
     hr_timesheets: async function(e) {
         var self = this; 
         var today = new Date();
@@ -361,25 +358,25 @@ var HrDashboard = AbstractAction.extend({
         };
 
         // var xmlId = 'hrms_dashboard.dashboard_attendance_treeview';
-        var xmlId = 'hrms_dashboard.view_attendance_tree';
-        var listViewId = false;
-        await this._rpc({
-                model: 'ir.model.data',
-                method: 'search',
-                args: [[['module', '=', 'hrms_dashboard'], ['name', '=', xmlId]]],
-            }).then(function (resIds) {
-                if (resIds && resIds.length > 0) {            
-            listViewId = resIds[0];
-                } else {
-                    console.error("List view not found for XML ID", xmlId);
-                }
-            });
+        // var xmlId = 'hrms_dashboard.view_attendance_tree';
+        var listViewId = 'hrms_dashboard.view_attendance_tree';
+        // await this._rpc({
+        //         model: 'ir.model.data',
+        //         method: 'search',
+        //         args: [[['module', '=', 'hrms_dashboard'], ['name', '=', xmlId]]],
+        //     }).then(function (resIds) {
+        //         if (resIds && resIds.length > 0) {            
+        //     listViewId = resIds[0];
+        //         } else {
+        //             console.error("List view not found for XML ID", xmlId);
+        //         }
+        //     });
         this.do_action({
             name: _t("Attendance"),
             type: 'ir.actions.act_window',
             res_model: 'hr.attendance',
             view_mode: 'tree,form',
-            views: [[listViewId, 'list'], [false, 'form']],
+            views: [[listViewId, 'list'],],
             // views: [[false, 'list'], [false, 'form']],
             context: {
                     "search_default_today":1, 
@@ -391,8 +388,8 @@ var HrDashboard = AbstractAction.extend({
         }, options);
     },
 
-    //hr_notify_form
 
+    //hr_notify_form
     hr_notify_form: async function(e) {
         var self = this;   
         e.stopPropagation();
