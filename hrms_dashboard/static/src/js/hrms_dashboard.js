@@ -360,7 +360,8 @@ var HrDashboard = AbstractAction.extend({
             on_reverse_breadcrumb: this.on_reverse_breadcrumb,
         };
 
-        var xmlId = 'hrms_dashboard.dashboard_attendance_treeview';
+        // var xmlId = 'hrms_dashboard.dashboard_attendance_treeview';
+        var xmlId = 'hrms_dashboard.hr_attendance_action_modified';
         var listViewId = false;
         await this._rpc({
                 model: 'ir.model.data',
