@@ -358,32 +358,31 @@ var HrDashboard = AbstractAction.extend({
         };
 
         // var xmlId = 'hrms_dashboard.dashboard_attendance_treeview';
-        // var xmlId = 'hrms_dashboard.view_attendance_tree';
-        var listViewId = 'hrms_dashboard.view_attendance_tree';
-        // await this._rpc({
-        //         model: 'ir.model.data',
-        //         method: 'search',
-        //         args: [[['module', '=', 'hrms_dashboard'], ['name', '=', xmlId]]],
-        //     }).then(function (resIds) {
-        //         if (resIds && resIds.length > 0) {            
-        //     listViewId = resIds[0];
-        //         } else {
-        //             console.error("List view not found for XML ID", xmlId);
-        //         }
-        //     });
+        var xmlId = 'hrms_dashboard.view_attendance_tree';
+        var listViewId = false;
+        await this._rpc({
+                model: 'ir.model.data',
+                method: 'search',
+                args: [[['module', '=', 'hrms_dashboard'], ['name', '=', xmlId]]],
+            }).then(function (resIds) {
+                if (resIds && resIds.length > 0) {            
+            listViewId = resIds[0];
+                } else {
+                    console.error("List view not found for XML ID", xmlId);
+                }
+            });
         this.do_action({
             name: _t("Attendance"),
             type: 'ir.actions.act_window',
             res_model: 'hr.attendance',
             view_mode: 'tree,form',
-            views: [[listViewId, 'list'],],
-            // views: [[false, 'list'], [false, 'form']],
+            views: [[false, 'list'], [false, 'form']],
             context: {
                     "search_default_today":1, 
                     "group_by": "check_in"
                     },
-            // domain: [['employee_id','=', this.login_employee.id], ['create_date', '<', nextMonth],['create_date', '>=', currentMonth]],
-            domain: [['employee_id','=', this.login_employee.id],],
+            domain: [['employee_id','=', this.login_employee.id], ['create_date', '<', nextMonth],['create_date', '>=', currentMonth]],
+            // domain: [['employee_id','=', this.login_employee.id],],
             target: 'current',
         }, options);
     },
