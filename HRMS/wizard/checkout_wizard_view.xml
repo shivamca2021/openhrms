@@ -6,14 +6,6 @@
         <field name="model">hrms.checkout.wiz</field>
         <field name="arch" type="xml">
             <form string="Create Menu">
-                <!--                <group>-->
-                <!--                    <field name="project_id"/>-->
-                <!--                    <field name="hours_worked"/>-->
-                <!--                </group>-->
-                <!--                <group>-->
-                <!--                    <field name="role"/>-->
-                <!--                    <field name="description"/>-->
-                <!--                </group>-->
                 <group>
                     <field name="name"/>
                 </group>
@@ -36,6 +28,7 @@
             </form>
         </field>
     </record>
+
     <record id="view_hrms_checkout_wiz_tree" model="ir.ui.view">
         <field name="name">Attendance</field>
         <field name="model">hrms.checkout.wiz</field>
@@ -45,6 +38,7 @@
             </tree>
         </field>
     </record>
+
     <record id="view_attendance_checkout_line_tree" model="ir.ui.view">
         <field name="name">Attendance</field>
         <field name="model">attendance.checkout.line</field>
@@ -58,6 +52,7 @@
             </tree>
         </field>
     </record>
+    
     <record id="act_hrms_checkout" model="ir.actions.act_window">
         <field name="name">Check Out</field>
         <field name="res_model">hrms.checkout.wiz</field>

@@ -18,6 +18,7 @@ from odoo.tools.misc import get_lang
 from odoo.tools import sql
 from odoo.addons.portal.controllers.web import Home
 from odoo.addons.web.controllers.session import Session
+from datetime import datetime,date
 
 
 class HrmsHome(Home):
@@ -26,16 +27,19 @@ class HrmsHome(Home):
     @http.route(website=True, auth="public", sitemap=False)
     def web_login(self, *args, **kw):
         response = super().web_login(*args, **kw)
+        print("Response_Status_Code : ",response.status_code)
         last_day_attendance = request.env['attendance.record'].sudo().search([('employee', '=', request.env.user.employee_id.id)],
-                                                                   order='id desc', limit=1)
-        if len(last_day_attendance) == 1 and not last_day_attendance.checkout_time:
-            request.env.user.action_id = request.env.ref('HRMS.act_hrms_checkout').id
-        #     last_day_attendance.checkout_time = datetime.datetime.utcnow()
+                                                                   order='id desc', 
+                                                                   limit=1)
+        # if len(last_day_attendance) == 1 and not last_day_attendance.checkout_time:
+        #     request.env.user.action_id = request.env.ref('HRMS.act_hrms_checkout').id
+        #     last_day_attendance.checkout_time = datetime.now()
+        
         if response.status_code == 303 and request.env.user.employee_id and not request.env.user.user_login_today:
-            # request.env.user.user_login_today = True
             request.env.user.write({'user_login_today': True})
             request.env['hr.employee'].sudo().browse(request.env.user.employee_id.id).attendance_manual(
                 'hr_attendance.hr_attendance_action_my_attendances')
+        
         return response
 
 

@@ -127,6 +127,7 @@
                     <field name="relevant_experience"/>
                 </group>
             </xpath> -->
+            
             <xpath expr="//field[@name='mobile_phone']" position="before">
                 <field name="skype_id"/>
             </xpath>
@@ -142,14 +143,7 @@
             <xpath expr="//field[@name='coach_id']" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
-            <!-- <xpath expr="//group[@name='identification_id']" position="before">
-                <group name="personal_info" string="Personal Info.">
-                    <field name="mobile_phone"/>
-                    <field name="work_phone"/>
-                    <field name="parent_id"/>
-                    <field name="coach_id"/>
-                </group>
-            </xpath> -->
+            
             <xpath expr="//page[2]" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
