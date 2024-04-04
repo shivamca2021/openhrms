@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'HRMS',
-    'version': '16.0.1.4A',
+    'version': '16.0.1.5',
     'summary': 'EvonTech HRMS system',
     'sequence': 10,
     'description': """

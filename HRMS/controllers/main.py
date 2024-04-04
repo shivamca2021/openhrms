@@ -31,9 +31,9 @@ class HrmsHome(Home):
         last_day_attendance = request.env['attendance.record'].sudo().search([('employee', '=', request.env.user.employee_id.id)],
                                                                    order='id desc', 
                                                                    limit=1)
-        # if len(last_day_attendance) == 1 and not last_day_attendance.checkout_time:
-        #     request.env.user.action_id = request.env.ref('HRMS.act_hrms_checkout').id
-        #     last_day_attendance.checkout_time = datetime.now()
+        if len(last_day_attendance) == 1 and not last_day_attendance.checkout_time and last_day_attendance.total_hours >= 8.5:
+            request.env.user.action_id = request.env.ref('HRMS.act_hrms_checkout').id
+            last_day_attendance.checkout_time = datetime.now()
         
         if response.status_code == 303 and request.env.user.employee_id and not request.env.user.user_login_today:
             request.env.user.write({'user_login_today': True})
