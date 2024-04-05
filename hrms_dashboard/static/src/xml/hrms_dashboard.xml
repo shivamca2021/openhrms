@@ -144,6 +144,12 @@
                 </div>
             </div> -->
 
+            <div class="col-md-2 col-sm-8  oh-payslip oh-timesheets">  
+            </div>
+
+            <div class="col-md-2 col-sm-8  oh-payslip oh-timesheets">  
+            </div>
+
             <!-- Leave Calendar -->
 
             <div class="col-md-2 col-sm-8 hr_e_calendar oh-payslip oh-timesheets">
