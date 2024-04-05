@@ -146,7 +146,7 @@
 
             <!-- Leave Calendar -->
 
-            <div class="col-sm-12 col-lg-12 hr_e_calendar oh-payslip oh-timesheets">
+            <div class="col-md-2 col-sm-8 hr_e_calendar oh-payslip oh-timesheets">
                 <div class="oh-card">
                     <div class="oh-card-body">
                         <div class="stat-widget-one">
