@@ -87,6 +87,12 @@ class CustomHrLeave(models.Model):
         if employee.user_id:
             self.message_subscribe(partner_ids = self.report_field_id.ids)
 
+    def action_validate(self):
+        res = super(CustomHrLeave, self).action_validate()
+        user = self.env.user
+        if user.id not in self.rel_type_approver.ids or not self.user_has_groups('stock_inventory.group_customuser_HR'):
+            raise UserError("You are Not Authorised to approve leaves.")
+        return res
 
     def action_approve(self):
         res = super(CustomHrLeave, self).action_approve()
