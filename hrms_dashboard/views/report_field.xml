@@ -42,11 +42,9 @@
                 <notebook>
                     <page string="Remaining Leave's">
                         <field name="emp_remaining_leaves_ids" force_save="1">
-                            <tree editable="bottom">
-                                <!-- <field name="name" /> -->
+                            <tree editable="bottom" create="false" delete="false" edit="false">
                                 <field name="display_name" />
                                 <field name="remaining_leaves" />
-                                <!-- <field name="duration_display" /> -->
                                 <field name="leaves_taken" />
                             </tree>
                         </field>
