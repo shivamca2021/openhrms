@@ -18,8 +18,9 @@ from odoo.tools.misc import get_lang
 from odoo.tools import sql
 from odoo.addons.portal.controllers.web import Home
 from odoo.addons.web.controllers.session import Session
-from datetime import datetime,date
-
+from datetime import datetime
+from odoo.exceptions import UserError
+from odoo import api, _
 
 class HrmsHome(Home):
 
@@ -28,6 +29,17 @@ class HrmsHome(Home):
     def web_login(self, *args, **kw):
         response = super().web_login(*args, **kw)
         print("Response_Status_Code : ",response.status_code)
+
+        employee = request.env.user.employee_id.id
+        print("Employee : ",employee)
+        
+        leaves = request.env['hr.leave'].sudo().search([('employee_id', '=', request.env.user.employee_id.id),('state','=','validate')])
+        print("Leaves : ",leaves)
+        if leaves:
+            for rec in leaves:
+                if rec.date_from.date() == datetime.today().date() or rec.date_to.date() == datetime.today().date():
+                    raise UserError(_('User has applied for leave and cannot login'))
+
         last_day_attendance = request.env['attendance.record'].sudo().search([('employee', '=', request.env.user.employee_id.id)],
                                                                    order='id desc', 
                                                                    limit=1)
