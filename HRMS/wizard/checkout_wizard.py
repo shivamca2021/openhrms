@@ -12,7 +12,6 @@ class HrmsCheckoutWizard(models.Model):
     _description = 'HRMS Checkout Wizard'
 
     name = fields.Char(string='Name')
-    # name = fields.Char(string='Name')
     project_id = fields.Many2one('project.project', string='Project')
     description = fields.Text(string='Description')
     hours_worked = fields.Float(string='Hours Worked')
